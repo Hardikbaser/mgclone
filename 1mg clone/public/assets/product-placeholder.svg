@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 380" role="img" aria-labelledby="title description">
+  <title id="title">Product image unavailable</title>
+  <desc id="description">A 1mg product placeholder</desc>
+  <rect width="380" height="380" fill="#f1efea"/>
+  <circle cx="190" cy="165" r="68" fill="#ff6f61" opacity=".16"/>
+  <path d="M145 205h90v42h-90z" fill="#ff6f61" opacity=".75"/>
+  <text x="190" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="white">1mg</text>
+  <text x="190" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#77736b">Image unavailable</text>
+</svg>

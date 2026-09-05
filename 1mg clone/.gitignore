@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Logs, coverage, and temporary files
+*.log
+logs/
+coverage/
+.nyc_output/
+*.tsbuildinfo
+*.tmp
+*.temp
+
+# Local databases and backups
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+
+# Deployment and tool caches
+.vercel/
+.turbo/
+.cache/
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo

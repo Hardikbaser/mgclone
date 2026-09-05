@@ -1,0 +1,5 @@
+import Link from 'next/link';
+import { ArrowLeft, Mic, Phone, Video } from 'lucide-react';
+import styles from '../../page.module.css';
+
+export default async function ConsultationPage({ params }: { params: Promise<{ id: string }> }) { const { id } = await params; return <main className={styles.consultPage}><div className={styles.consultTop}><Link href="/doctors" className={styles.backLink}><ArrowLeft size={16}/> Leave room</Link><span>Consultation {id} · Encrypted</span></div><section className={styles.jitsiFrame}><iframe className={styles.jitsiEmbed} src={`https://meet.jit.si/1mg-consultation-${id}`} allow="camera; microphone; fullscreen; display-capture" title="Secure doctor consultation" /><div className={styles.jitsiFallback}><div className={styles.avatar}>MS</div><h1>Dr. Meera Sharma</h1><p>Waiting for the doctor to join...</p><div><button className={styles.roundControl}><Mic size={18}/></button><button className={styles.endCall}><Phone size={18}/></button><button className={styles.roundControl}><Video size={18}/></button></div></div></section></main>; }
