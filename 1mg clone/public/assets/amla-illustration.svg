@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+  <title id="title">Fresh amla fruit</title>
+  <desc id="desc">A botanical illustration of Indian gooseberries with leaves.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#edf4de"/>
+      <stop offset="1" stop-color="#d2e6b6"/>
+    </linearGradient>
+    <radialGradient id="fruit" cx="35%" cy="28%" r="72%">
+      <stop offset="0" stop-color="#e7f5a0"/>
+      <stop offset=".62" stop-color="#a9c94f"/>
+      <stop offset="1" stop-color="#6e9835"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#background)"/>
+  <path d="M90 344C165 275 252 245 392 224" fill="none" stroke="#5f7831" stroke-linecap="round" stroke-width="18"/>
+  <path d="M183 291c-71-10-102-48-103-98 63 4 99 37 103 98Z" fill="#668f3a"/>
+  <path d="M226 268c-18-63 4-104 53-125 20 56 4 98-53 125Z" fill="#779f40"/>
+  <path d="M331 238c-7-59 22-94 73-107 11 53-14 91-73 107Z" fill="#5f8c37"/>
+  <g stroke="#8bab43" stroke-width="4">
+    <circle cx="231" cy="235" r="75" fill="url(#fruit)"/>
+    <circle cx="354" cy="221" r="88" fill="url(#fruit)"/>
+    <circle cx="444" cy="285" r="64" fill="url(#fruit)"/>
+  </g>
+  <g fill="none" opacity=".58" stroke="#668536" stroke-linecap="round" stroke-width="5">
+    <path d="M205 169c-12 41-12 84 1 133M231 160c-7 47-6 101 1 149M257 169c3 41 1 82-12 128"/>
+    <path d="M323 137c-13 53-14 103-2 168M354 133c-8 52-6 105 3 175M385 144c5 49 2 100-11 158"/>
+    <path d="M422 224c-8 37-7 76 3 120M446 221c-5 39-3 80 6 125M468 233c3 35 0 71-10 108"/>
+  </g>
+  <g fill="#f3f8d5" opacity=".75">
+    <circle cx="207" cy="198" r="8"/><circle cx="327" cy="174" r="9"/><circle cx="424" cy="260" r="7"/>
+  </g>
+</svg>
