@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { Activity, ArrowRight, CalendarDays, Check, ChevronDown, Clock3, FileUp, FlaskConical, HeartPulse, Leaf, MapPin, Menu, Search, ShieldCheck, ShoppingCart, Stethoscope, UserRound, Video, X } from 'lucide-react';
+import { Activity, ArrowRight, CalendarDays, Check, ChevronDown, Clock3, FlaskConical, HeartPulse, Leaf, MapPin, Menu, Search, ShieldCheck, ShoppingCart, Stethoscope, UserRound, Video, X } from 'lucide-react';
 import styles from './page.module.css';
 import { UserAuthButton } from '../components/UserAuthButton';
 import { SafeImage } from '../components/SafeImage';
+import { DoctorFaq } from '../components/DoctorFaq';
 import { useCartStore } from '../lib/useCartStore';
 import OneMgProductCard from '../src/components/OneMg/OneMgProductCard';
 import oneMgProducts from '../src/data/oneMgProducts';
@@ -20,6 +21,14 @@ const products: Product[] = [
     { id: 'shelcal', name: 'Shelcal 500mg Tablet', composition: 'Calcium Carbonate 500mg', price: 104, mrp: 120, brand: 'Torrent', category: 'Vitamins', image },
 ];
 const doctors = [{ name: 'Dr. Meera Sharma', specialty: 'General Physician', exp: '14 yrs', rating: '4.9', fee: 399 }, { name: 'Dr. Rohan Kapoor', specialty: 'Dermatologist', exp: '11 yrs', rating: '4.8', fee: 599 }];
+const radiologyTests = [
+    { name: 'CT Scan', image: '/assets/radiology/CT Scan.avif' },
+    { name: 'ECG', image: '/assets/radiology/ECG.avif' },
+    { name: 'X-Ray', image: '/assets/radiology/xray.avif' },
+    { name: 'Ultrasound', image: '/assets/radiology/UltraSound.avif' },
+    { name: 'MRI', image: '/assets/radiology/MRI.avif' },
+    { name: 'Echo Test', image: '/assets/radiology/Echo Test.avif' },
+];
 const healthConcerns = [
     { name: 'Diabetes', href: 'https://www.1mg.com/categories/diabetes-1', image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=300&q=80' },
     { name: 'Heart Care', href: 'https://www.1mg.com/categories/heart-care-35', image: 'https://cdn.onmmd.gr/img/1200/900/90/2025/06/25/86e9fb4a-bigstock-Young-woman-in-pajamas-having-83143466.jpg?t=naytY2eR1b158SZ9AxSn1g' },
@@ -60,11 +69,31 @@ const ayurvedaCareSections = [
     ] },
 ];
 
-let uploaded = false;
-const setUploaded = (value: boolean) => { uploaded = value; };
+const cities = [
+    { name: 'New Delhi', state: 'Delhi', pincode: '110001' },
+    { name: 'Mumbai', state: 'Maharashtra', pincode: '400001' },
+    { name: 'Bengaluru', state: 'Karnataka', pincode: '560001' },
+    { name: 'Hyderabad', state: 'Telangana', pincode: '500001' },
+    { name: 'Chennai', state: 'Tamil Nadu', pincode: '600001' },
+    { name: 'Kolkata', state: 'West Bengal', pincode: '700001' },
+    { name: 'Pune', state: 'Maharashtra', pincode: '411001' },
+    { name: 'Ahmedabad', state: 'Gujarat', pincode: '380001' },
+    { name: 'Jaipur', state: 'Rajasthan', pincode: '302001' },
+    { name: 'Lucknow', state: 'Uttar Pradesh', pincode: '226001' },
+    { name: 'Chandigarh', state: 'Chandigarh', pincode: '160017' },
+    { name: 'Kochi', state: 'Kerala', pincode: '682001' },
+    { name: 'Indore', state: 'Madhya Pradesh', pincode: '452001' },
+    { name: 'Bhopal', state: 'Madhya Pradesh', pincode: '462001' },
+    { name: 'Surat', state: 'Gujarat', pincode: '395003' },
+    { name: 'Visakhapatnam', state: 'Andhra Pradesh', pincode: '530001' },
+    { name: 'Patna', state: 'Bihar', pincode: '800001' },
+    { name: 'Coimbatore', state: 'Tamil Nadu', pincode: '641001' },
+    { name: 'Guwahati', state: 'Assam', pincode: '781001' },
+    { name: 'Bhubaneswar', state: 'Odisha', pincode: '751001' },
+];
 
 export default function Home() {
-    const [query, setQuery] = useState(''); const [tab, setTab] = useState('Medicines'); const [notice, setNotice] = useState(''); const [pin, setPin] = useState(''); const [uploaded, setUploaded] = useState(false); const cart = useCartStore((state) => state.items); const addItem = useCartStore((state) => state.addItem); const setItemQuantity = useCartStore((state) => state.setItemQuantity); const toggleCart = useCartStore((state) => state.toggleCart);
+    const [query, setQuery] = useState(''); const [tab, setTab] = useState('Lab Tests'); const [notice, setNotice] = useState(''); const [pin, setPin] = useState(cities[0].pincode); const [selectedCity, setSelectedCity] = useState(cities[0]); const [citySearch, setCitySearch] = useState(''); const [isCityPickerOpen, setIsCityPickerOpen] = useState(false); const cart = useCartStore((state) => state.items); const addItem = useCartStore((state) => state.addItem); const setItemQuantity = useCartStore((state) => state.setItemQuantity); const toggleCart = useCartStore((state) => state.toggleCart);
     const filtered = useMemo(() => products.filter(p => `${p.name} ${p.composition}`.toLowerCase().includes(query.toLowerCase())), [query]);
     const substitutes = products.filter(p => p.composition === 'Paracetamol 650mg');
     const add = (p: Product) => { addItem(p); setNotice(`${p.name} added to cart`); setTimeout(() => setNotice(''), 2200); };
@@ -74,9 +103,12 @@ export default function Home() {
         setNotice(quantity > 0 ? `${product.title} quantity updated` : `${product.title} removed from cart`);
         setTimeout(() => setNotice(''), 2200);
     };
+    const matchingCities = cities.filter((city) => `${city.name} ${city.state}`.toLowerCase().includes(citySearch.toLowerCase()));
+    const selectCity = (city: typeof cities[number]) => { setSelectedCity(city); setPin(city.pincode); setCitySearch(''); setIsCityPickerOpen(false); setNotice(`Delivery location set to ${city.name}`); };
     return <main className={styles.app}>
         <div className={styles.topline}>India&apos;s most trusted healthcare platform <span>Download the app</span></div>
-        <header className={styles.header}><div className={styles.nav}><button className={styles.mobileMenu}><Menu size={20} /></button><Link href="/" className={styles.logo}><span>1</span>mg</Link><nav><button className={tab === 'Medicines' ? styles.activeNav : ''} onClick={() => setTab('Medicines')}>Medicines</button><button className={tab === 'Lab Tests' ? styles.activeNav : ''} onClick={() => setTab('Lab Tests')}>Lab Tests</button><button className={tab === 'Doctors' ? styles.activeNav : ''} onClick={() => setTab('Doctors')}>Consult Doctors</button><button className={tab === 'Ayurveda' ? styles.activeNav : ''} onClick={() => setTab('Ayurveda')}>Ayurveda</button></nav><div className={styles.location}><MapPin size={16} /><span>Deliver to <b>110001</b></span><ChevronDown size={14} /></div><UserAuthButton /><button className={styles.cart} onClick={toggleCart} aria-label="Open cart"><ShoppingCart size={19} /><i>{cart.length}</i></button></div><div className={styles.searchWrap}><Search size={20} /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search for medicines and health products" /><kbd>⌘ K</kbd></div></header>
+        <header className={styles.header}><div className={styles.nav}><button className={styles.mobileMenu}><Menu size={20} /></button><Link href="/" className={styles.logo}><span>1</span>mg</Link><nav><button className={tab === 'Medicines' ? styles.activeNav : ''} onClick={() => setTab('Medicines')}>Medicines</button><button className={tab === 'Lab Tests' ? styles.activeNav : ''} onClick={() => setTab('Lab Tests')}>Lab Tests</button><button className={tab === 'Doctors' ? styles.activeNav : ''} onClick={() => setTab('Doctors')}>Consult Doctors</button><button className={tab === 'Ayurveda' ? styles.activeNav : ''} onClick={() => setTab('Ayurveda')}>Ayurveda</button></nav><button type="button" className={styles.location} onClick={() => setIsCityPickerOpen(true)} aria-haspopup="dialog" aria-label={`Change delivery city, currently ${selectedCity.name}`}><MapPin size={16} /><span>Deliver to <b>{selectedCity.pincode}</b></span><ChevronDown size={14} /></button><UserAuthButton /><button className={styles.cart} onClick={toggleCart} aria-label="Open cart"><ShoppingCart size={19} /><i>{cart.length}</i></button></div><div className={styles.searchWrap}><Search size={20} /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search for medicines and health products" /><kbd>⌘ K</kbd></div></header>
+        {isCityPickerOpen && <div className={styles.cityPickerBackdrop} onMouseDown={() => setIsCityPickerOpen(false)}><section className={styles.cityPicker} role="dialog" aria-modal="true" aria-labelledby="city-picker-title" onMouseDown={(event) => event.stopPropagation()}><div className={styles.cityPickerHead}><div><h2 id="city-picker-title">Choose your city</h2><p>Select a city to update your delivery PIN code.</p></div><button type="button" onClick={() => setIsCityPickerOpen(false)} aria-label="Close city picker"><X size={19} /></button></div><div className={styles.citySearch}><Search size={18} /><input autoFocus value={citySearch} onChange={(event) => setCitySearch(event.target.value)} placeholder="Search city" aria-label="Search city" /></div><div className={styles.cityList}>{matchingCities.length ? matchingCities.map((city) => <button type="button" className={styles.cityOption} key={city.name} onClick={() => selectCity(city)}><MapPin size={18} /><span><b>{city.name}</b><small>{city.state}</small></span><em>{city.pincode}</em></button>) : <p className={styles.noCities}>No city found. Try another search.</p>}</div></section></div>}
         {notice && <div className={styles.toast}>{notice}<X size={15} onClick={() => setNotice('')} /></div>}
         {tab === 'Medicines' && <>
             <section className={styles.content} style={{ paddingBottom: 0 }} aria-label="1mg essentials">
@@ -92,7 +124,7 @@ export default function Home() {
             </section>
             <section className={styles.substitute}><div><p className={styles.eyebrow}>SMARTER SAVINGS</p><h2>Find a lower-cost substitute</h2><p>Same active ingredient. Better value. Compare trusted alternatives recommended by our pharmacists.</p><button className={styles.darkBtn} onClick={() => setNotice('Substitute engine found 1 lower-cost option')}>Compare substitutes <ArrowRight size={16} /></button></div><div className={styles.compare}><div className={styles.compareLabel}>PARACETAMOL 650MG</div>{substitutes.slice(0, 2).map((p, i) => <div className={styles.compareRow} key={p.id}><div className={styles.miniPack}>1mg</div><div><b>{p.name}</b><small>{p.brand} · Same composition</small></div><strong>₹{p.price}</strong>{i === 1 && <span className={styles.best}>BEST VALUE</span>}</div>)}</div></section>
         </>}
-        {tab === 'Lab Tests' && <Lab pin={pin} setPin={setPin} setNotice={setNotice} />} {tab === 'Doctors' && <Doctors setNotice={setNotice} />} {tab === 'Ayurveda' && <Ayurveda setNotice={setNotice} />}
+        {tab === 'Lab Tests' && <Lab pin={pin} setPin={setPin} setNotice={setNotice} />} {tab === 'Doctors' && <><Doctors setNotice={setNotice} /><DoctorFaq compact /></>} {tab === 'Ayurveda' && <Ayurveda setNotice={setNotice} />}
         <section className={styles.footerCta}><div><HeartPulse size={26} /><b>Health stories, made simple.</b><span>Join 10 million+ people who trust 1mg for their health.</span></div><button className={styles.primary}>Get the app <ArrowRight size={16} /></button></section>
         <footer><div className={styles.logo}><span>1</span>mg</div><span>© 2026 Tata 1mg · Care for all.</span><div>Privacy &nbsp; Terms &nbsp; Contact us</div></footer>
     </main>;
@@ -108,7 +140,7 @@ function Lab({ pin, setPin, setNotice }: { pin: string; setPin: (v: string) => v
         setBookedSlot({ test: selectedTest, date: selectedDate, time: selectedTime });
         setNotice(`Home collection booked for ${selectedTime}`);
     };
-    return <section className={styles.content + ' ' + styles.module}><div className={styles.moduleHero}><div><p className={styles.eyebrow}>DIAGNOSTICS, MADE EASY</p><h1>Know your health.<br /><em>Own your life.</em></h1><p>Book reliable lab tests with free home sample collection and digital reports.</p></div><div className={styles.labArt}><FlaskConical size={80} /></div></div><div className={styles.sectionHead}><div><p className={styles.eyebrow}>POPULAR PACKAGES</p><h2>Tests people love</h2></div><span className={styles.muted}>Free home collection</span></div><div className={styles.testGrid}>{['Full Body Checkup', 'Thyroid Profile', 'Diabetes Care', 'Vitamin Health'].map((name, i) => <article className={styles.test} key={name}><span><FlaskConical size={20} /></span><h3>{name}</h3><p>{i + 18} parameters covered</p><b>₹{699 + i * 200}</b><button className={styles.addBtn} onClick={() => { setSelectedTest(name); setSelectedDate(''); setSelectedTime(''); }}>Book now <ArrowRight size={15} /></button></article>)}</div>
+    return <section className={styles.content + ' ' + styles.module}><div className={styles.moduleHero}><div><p className={styles.eyebrow}>DIAGNOSTICS, MADE EASY</p><h1>Know your health.<br /><em>Own your life.</em></h1><p>Book reliable lab tests with free home sample collection and digital reports.</p></div><div className={styles.labArt}><FlaskConical size={80} /></div></div><div className={styles.radiologySection}><h2 className={styles.radiologyHeader}>Radiology tests, x-rays &amp; scans</h2><div className={styles.radiologyGrid}>{radiologyTests.map((test) => <article className={styles.radiologyCard} key={test.name}><img className={styles.radiologyImage} src={test.image} alt={test.name} /><span className={styles.radiologyTitle}>{test.name}</span></article>)}</div></div><div className={styles.sectionHead}><div><p className={styles.eyebrow}>POPULAR PACKAGES</p><h2>Tests people love</h2></div><span className={styles.muted}>Free home collection</span></div><div className={styles.testGrid}>{['Full Body Checkup', 'Thyroid Profile', 'Diabetes Care', 'Vitamin Health'].map((name, i) => <article className={styles.test} key={name}><span><FlaskConical size={20} /></span><h3>{name}</h3><p>{i + 18} parameters covered</p><b>₹{699 + i * 200}</b><button className={styles.addBtn} onClick={() => { setSelectedTest(name); setSelectedDate(''); setSelectedTime(''); }}>Book now <ArrowRight size={15} /></button></article>)}</div>
         {selectedTest && <section aria-label="Choose collection slot" style={{ background: '#fff7f5', border: '1px solid #ffd5cf', borderRadius: 6, marginBottom: 28, padding: 24 }}><p className={styles.eyebrow}>SCHEDULE HOME COLLECTION</p><h3 style={{ fontSize: 21, fontWeight: 400, margin: '0 0 8px' }}>{selectedTest}</h3><p style={{ color: '#706c66', font: '13px Arial', margin: '0 0 18px' }}>Choose a convenient date and a one-hour collection window.</p><label style={{ color: '#444', display: 'block', font: '12px Arial', fontWeight: 'bold', marginBottom: 16 }}>COLLECTION DATE<input type="date" value={selectedDate} onChange={event => setSelectedDate(event.target.value)} style={{ border: '1px solid #d9d5cc', display: 'block', font: '14px Arial', marginTop: 7, padding: 10 }} /></label><p style={{ color: '#444', font: '12px Arial', fontWeight: 'bold', margin: '0 0 9px' }}>AVAILABLE TIME SLOTS</p><div style={{ display: 'flex', flexWrap: 'wrap', gap: 9, marginBottom: 19 }}>{timeSlots.map(time => <button key={time} type="button" onClick={() => setSelectedTime(time)} style={{ background: selectedTime === time ? '#ff6f61' : '#fff', border: '1px solid #ff6f61', borderRadius: 4, color: selectedTime === time ? '#fff' : '#d85145', cursor: 'pointer', font: '12px Arial', padding: '9px 12px' }}>{time}</button>)}</div><button className={styles.darkBtn} type="button" onClick={confirmBooking}>Confirm collection slot <Check size={15} /></button></section>}
         {bookedSlot && <section aria-live="polite" style={{ background: '#e7f1e9', border: '1px solid #b9d9c0', borderRadius: 6, marginBottom: 28, padding: '16px 20px' }}><p className={styles.eyebrow} style={{ color: '#397347', marginBottom: 7 }}>COLLECTION BOOKED</p><b style={{ fontSize: 15 }}>{bookedSlot.test}</b><p style={{ color: '#3f6046', font: '13px Arial', margin: '7px 0 0' }}>Home sample collection: {new Date(`${bookedSlot.date}T00:00:00`).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}, {bookedSlot.time}</p></section>}
         <div className={styles.pinCheck}><div><MapPin /><b>Check home collection</b><span>Enter your pincode to see available slots</span></div><input placeholder="Enter pincode" value={pin} onChange={e => setPin(e.target.value)} /><button className={styles.darkBtn} onClick={() => setNotice(pin.length === 6 ? 'Great, home collection is available' : 'Please enter a 6-digit pincode')}>Check</button></div></section> }
@@ -126,7 +158,7 @@ function Doctors({ setNotice }: { setNotice: (v: string) => void }) {
     return <section className={styles.content + ' ' + styles.module}><div className={styles.doctorHero}><div><p className={styles.eyebrow}>EXPERT CARE, ON CALL</p><h1>A doctor is<br /><em>always here.</em></h1><p>Talk to a qualified doctor in minutes, from wherever you are.</p><button className={styles.primary} onClick={() => setNotice('Showing doctors available now')}>Consult now <Video size={17} /></button></div><div className={styles.doctorArt}><Stethoscope size={86} /></div></div><div className={styles.sectionHead}><div><p className={styles.eyebrow}>TOP SPECIALISTS</p><h2>Find your doctor</h2></div><span className={styles.muted}>Available today</span></div><div className={styles.doctorGrid}>{doctors.map(d => <article className={styles.doctor} key={d.name}><div className={styles.avatar}>{d.name.split(' ').map(x => x[0]).join('')}</div><div><h3>{d.name}</h3><p>{d.specialty}</p><small>{d.exp} experience · ★ {d.rating}</small><div><b>₹{d.fee}</b><button className={styles.addBtn} onClick={() => { setSelectedDoctor(d); setAppointmentDate(''); setAppointmentTime(''); }}>Book slot <CalendarDays size={15} /></button></div></div></article>)}</div>
         {selectedDoctor && <section aria-label="Choose consultation slot" style={{ background: '#fff7f5', border: '1px solid #ffd5cf', borderRadius: 6, marginBottom: 28, padding: 24 }}><p className={styles.eyebrow}>SCHEDULE VIDEO CONSULTATION</p><h3 style={{ fontSize: 21, fontWeight: 400, margin: '0 0 8px' }}>{selectedDoctor.name}</h3><p style={{ color: '#706c66', font: '13px Arial', margin: '0 0 18px' }}>{selectedDoctor.specialty} · ₹{selectedDoctor.fee} consultation</p><label style={{ color: '#444', display: 'block', font: '12px Arial', fontWeight: 'bold', marginBottom: 16 }}>CONSULTATION DATE<input type="date" value={appointmentDate} onChange={event => setAppointmentDate(event.target.value)} style={{ border: '1px solid #d9d5cc', display: 'block', font: '14px Arial', marginTop: 7, padding: 10 }} /></label><p style={{ color: '#444', font: '12px Arial', fontWeight: 'bold', margin: '0 0 9px' }}>AVAILABLE TIME SLOTS</p><div style={{ display: 'flex', flexWrap: 'wrap', gap: 9, marginBottom: 19 }}>{consultationSlots.map(time => <button key={time} type="button" onClick={() => setAppointmentTime(time)} style={{ background: appointmentTime === time ? '#ff6f61' : '#fff', border: '1px solid #ff6f61', borderRadius: 4, color: appointmentTime === time ? '#fff' : '#d85145', cursor: 'pointer', font: '12px Arial', padding: '9px 12px' }}>{time}</button>)}</div><button className={styles.darkBtn} type="button" onClick={confirmAppointment}>Confirm consultation <Check size={15} /></button></section>}
         {confirmedAppointment && <section aria-live="polite" style={{ background: '#e7f1e9', border: '1px solid #b9d9c0', borderRadius: 6, marginBottom: 28, padding: '16px 20px' }}><p className={styles.eyebrow} style={{ color: '#397347', marginBottom: 7 }}>CONSULTATION BOOKED</p><b style={{ fontSize: 15 }}>{confirmedAppointment.doctor} · {confirmedAppointment.specialty}</b><p style={{ color: '#3f6046', font: '13px Arial', margin: '7px 0 0' }}>Video consultation: {new Date(`${confirmedAppointment.date}T00:00:00`).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}, {confirmedAppointment.time}</p></section>}
-        <div className={styles.upload}><div><FileUp /><b>Need a prescription?</b><span>Upload it securely for verification by our pharmacists.</span></div><label className={styles.darkBtn}>{uploaded ? <><Check size={16} /> Uploaded</> : <>Upload prescription <input type="file" hidden onChange={() => setUploaded(true)} /></>}</label></div></section> }
+        </section> }
 
 function Ayurveda({ setNotice }: { setNotice: (v: string) => void }) {
     const [selectedCare, setSelectedCare] = useState('Featured Herbs');
