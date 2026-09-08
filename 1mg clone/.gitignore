@@ -52,3 +52,18 @@ Desktop.ini
 .vscode/
 *.swp
 *.swo
+
+# Local development caches and runtime state
+.eslintcache
+.stylelintcache
+.npm/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/install-state.gz
+*.tsbuildinfo
+
+# Local payment-provider and deployment configuration
+.razorpay/
+.firebase/
+.wrangler/
