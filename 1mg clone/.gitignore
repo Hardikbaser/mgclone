@@ -1,9 +1,12 @@
-# Dependencies
-node_modules/
+# Dependencies (frontend and backend)
+**/node_modules/
 
-# Next.js build output
-.next/
+# Next.js build output and deployment artifacts
+**/.next/
 out/
+.vercel/
+.turbo/
+.cache/
 
 # Environment files and secrets
 .env
@@ -18,8 +21,17 @@ out/
 # Logs, coverage, and temporary files
 *.log
 logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.pid
+*.pid.lock
 coverage/
 .nyc_output/
+test-results/
+playwright-report/
 *.tsbuildinfo
 *.tmp
 *.temp
@@ -29,15 +41,13 @@ coverage/
 *.sqlite3
 *.db
 *.bak
-
-# Deployment and tool caches
-.vercel/
-.turbo/
-.cache/
+backend/uploads/
 
 # Editor and operating-system files
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 .idea/
 .vscode/
 *.swp

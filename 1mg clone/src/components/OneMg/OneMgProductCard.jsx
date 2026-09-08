@@ -13,13 +13,17 @@ export default function OneMgProductCard({ product, onAddToCart }) {
   const safeDiscount = Math.min(100, Math.max(0, Number(product?.discountPercent) || 0));
   const finalPrice = safeMrp * (1 - safeDiscount / 100);
 
-  const updateQuantity = (nextQuantity) => {
+  const updateQuantity = async (nextQuantity) => {
     const next = Math.max(0, nextQuantity);
-    setQuantity(next);
-
     if (typeof onAddToCart === 'function') {
-      onAddToCart(product, next);
+      try {
+        const accepted = await onAddToCart(product, next);
+        if (accepted === false) return;
+      } catch {
+        return;
+      }
     }
+    setQuantity(next);
   };
 
   const styles = {

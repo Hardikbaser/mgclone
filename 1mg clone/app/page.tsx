@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { Activity, ArrowRight, CalendarDays, Check, ChevronDown, Clock3, FlaskConical, HeartPulse, Leaf, MapPin, Menu, Search, ShieldCheck, ShoppingCart, Stethoscope, UserRound, Video, X } from 'lucide-react';
 import styles from './page.module.css';
@@ -8,6 +9,7 @@ import { UserAuthButton } from '../components/UserAuthButton';
 import { SafeImage } from '../components/SafeImage';
 import { DoctorFaq } from '../components/DoctorFaq';
 import { useCartStore } from '../lib/useCartStore';
+import { useHealthStore } from '../lib/store';
 import OneMgProductCard from '../src/components/OneMg/OneMgProductCard';
 import oneMgProducts from '../src/data/oneMgProducts';
 
@@ -93,15 +95,28 @@ const cities = [
 ];
 
 export default function Home() {
-    const [query, setQuery] = useState(''); const [tab, setTab] = useState('Lab Tests'); const [notice, setNotice] = useState(''); const [pin, setPin] = useState(cities[0].pincode); const [selectedCity, setSelectedCity] = useState(cities[0]); const [citySearch, setCitySearch] = useState(''); const [isCityPickerOpen, setIsCityPickerOpen] = useState(false); const cart = useCartStore((state) => state.items); const addItem = useCartStore((state) => state.addItem); const setItemQuantity = useCartStore((state) => state.setItemQuantity); const toggleCart = useCartStore((state) => state.toggleCart);
+    const [query, setQuery] = useState(''); const [tab, setTab] = useState('Medicines'); const [notice, setNotice] = useState(''); const [pin, setPin] = useState(cities[0].pincode); const [selectedCity, setSelectedCity] = useState(cities[0]); const [citySearch, setCitySearch] = useState(''); const [isCityPickerOpen, setIsCityPickerOpen] = useState(false); const cart = useCartStore((state) => state.items); const addItem = useCartStore((state) => state.addItem); const setItemQuantity = useCartStore((state) => state.setItemQuantity); const toggleCart = useCartStore((state) => state.toggleCart); const session = useHealthStore((state) => state.session); const authReady = useHealthStore((state) => state.authReady); const router = useRouter();
     const filtered = useMemo(() => products.filter(p => `${p.name} ${p.composition}`.toLowerCase().includes(query.toLowerCase())), [query]);
     const substitutes = products.filter(p => p.composition === 'Paracetamol 650mg');
-    const add = (p: Product) => { addItem(p); setNotice(`${p.name} added to cart`); setTimeout(() => setNotice(''), 2200); };
-    const updateOneMgCart = (product: { id: string; title: string; mrp: number; discountPercent: number; isRxRequired?: boolean; image?: string }, quantity: number) => {
+    const requireSession = () => {
+        if (!authReady) { setNotice('Checking your sign-in status. Please try again.'); return false; }
+        if (!session) { setNotice('Please log in before adding items to your cart.'); router.push('/login'); return false; }
+        return true;
+    };
+    const add = async (p: Product) => { if (!requireSession()) return; try { await addItem(p); setNotice(`${p.name} added to cart`); } catch { setNotice('Please log in before adding items to your cart.'); router.push('/login'); } finally { setTimeout(() => setNotice(''), 2200); } };
+    const updateOneMgCart = async (product: { id: string; title: string; mrp: number; discountPercent: number; isRxRequired?: boolean; image?: string }, quantity: number) => {
+        if (!requireSession()) return false;
         const price = Number(product.mrp) * (1 - (Number(product.discountPercent) || 0) / 100);
-        setItemQuantity({ id: product.id, name: product.title, price, rx: product.isRxRequired, image: product.image }, quantity);
-        setNotice(quantity > 0 ? `${product.title} quantity updated` : `${product.title} removed from cart`);
-        setTimeout(() => setNotice(''), 2200);
+        try {
+            await setItemQuantity({ id: product.id, name: product.title, price, rx: product.isRxRequired, image: product.image }, quantity);
+            setNotice(quantity > 0 ? `${product.title} quantity updated` : `${product.title} removed from cart`);
+            setTimeout(() => setNotice(''), 2200);
+            return true;
+        } catch {
+            setNotice('Please log in before changing your cart.');
+            router.push('/login');
+            return false;
+        }
     };
     const matchingCities = cities.filter((city) => `${city.name} ${city.state}`.toLowerCase().includes(citySearch.toLowerCase()));
     const selectCity = (city: typeof cities[number]) => { setSelectedCity(city); setPin(city.pincode); setCitySearch(''); setIsCityPickerOpen(false); setNotice(`Delivery location set to ${city.name}`); };
