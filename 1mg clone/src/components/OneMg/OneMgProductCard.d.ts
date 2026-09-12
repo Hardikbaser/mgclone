@@ -13,6 +13,7 @@ export type OneMgProduct = {
 
 declare const OneMgProductCard: ComponentType<{
   product: OneMgProduct;
+  quantity?: number;
   onAddToCart?: (product: OneMgProduct, quantity: number) => void;
 }>;
 

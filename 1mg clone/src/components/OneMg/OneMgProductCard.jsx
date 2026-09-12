@@ -6,24 +6,27 @@ import { useState } from 'react';
  * A standalone Tata 1mg-inspired product card.
  * `onAddToCart` is optional and receives (product, quantity).
  */
-export default function OneMgProductCard({ product, onAddToCart }) {
-  const [quantity, setQuantity] = useState(0);
+export default function OneMgProductCard({ product, quantity = 0, onAddToCart }) {
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const safeMrp = Number(product?.mrp) || 0;
   const safeDiscount = Math.min(100, Math.max(0, Number(product?.discountPercent) || 0));
   const finalPrice = safeMrp * (1 - safeDiscount / 100);
 
   const updateQuantity = async (nextQuantity) => {
+    if (isUpdating) return;
     const next = Math.max(0, nextQuantity);
-    if (typeof onAddToCart === 'function') {
-      try {
+    setIsUpdating(true);
+    try {
+      if (typeof onAddToCart === 'function') {
         const accepted = await onAddToCart(product, next);
         if (accepted === false) return;
-      } catch {
-        return;
       }
+    } catch {
+      return;
+    } finally {
+      setIsUpdating(false);
     }
-    setQuantity(next);
   };
 
   const styles = {
@@ -78,12 +81,12 @@ export default function OneMgProductCard({ product, onAddToCart }) {
       </div>
 
       {quantity === 0 ? (
-        <button type="button" style={styles.add} onClick={() => updateQuantity(1)}>ADD</button>
+        <button type="button" style={styles.add} onClick={() => updateQuantity(1)} disabled={isUpdating}>ADD</button>
       ) : (
         <div style={styles.counter} aria-label={`${product?.title || 'Product'} quantity`}>
-          <button type="button" style={styles.counterButton} onClick={() => updateQuantity(quantity - 1)} aria-label="Decrease quantity">−</button>
+          <button type="button" style={styles.counterButton} onClick={() => updateQuantity(quantity - 1)} aria-label="Decrease quantity" disabled={isUpdating}>−</button>
           <span style={styles.counterValue}>{quantity}</span>
-          <button type="button" style={styles.counterButton} onClick={() => updateQuantity(quantity + 1)} aria-label="Increase quantity">+</button>
+          <button type="button" style={styles.counterButton} onClick={() => updateQuantity(quantity + 1)} aria-label="Increase quantity" disabled={isUpdating}>+</button>
         </div>
       )}
     </article>

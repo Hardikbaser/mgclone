@@ -35,7 +35,7 @@ export default function CheckoutPage() {
   const [placingOrder, setPlacingOrder] = useState(false);
   const [message, setMessage] = useState('');
   const [orderId, setOrderId] = useState('');
-  const subtotal = items.reduce((sum, item) => sum + item.price, 0);
+  const subtotal = items.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
   const discount = subtotal >= 499 ? 50 : 0;
   const total = subtotal + (items.length ? deliveryFee : 0) - discount;
   const updateAddress = (field: keyof Address, value: string) => setAddress((current) => ({ ...current, [field]: value }));
@@ -128,7 +128,7 @@ export default function CheckoutPage() {
           </section>
           <section className={styles.trust}><ShieldCheck size={23} /><div><b>Your health information stays private</b><span>Card, UPI, and bank details are entered only in Razorpay's secure checkout.</span></div></section>
         </div>
-        <aside className={styles.summary}><h2>Order summary</h2>{items.length ? <div className={styles.itemList}>{items.map((item, index) => <div className={styles.item} key={`${item.id}-${index}`}><span><b>{item.name}</b><small>{item.rx ? 'Prescription required' : 'OTC medicine'}</small></span><strong>₹{item.price}</strong></div>)}</div> : <div className={styles.empty}>Your cart is empty. Add items to continue.</div>}<div className={styles.bill}><div><span>Item total</span><b>₹{subtotal}</b></div><div><span>Delivery fee</span><b>₹{items.length ? deliveryFee : 0}</b></div>{discount > 0 && <div className={styles.saving}><span>Extra savings</span><b>− ₹{discount}</b></div>}<div className={styles.total}><span>To pay</span><b>₹{total}</b></div></div><button className={styles.payButton} type="submit" disabled={!items.length || placingOrder}>{placingOrder ? 'Placing order…' : paymentMethod === 'cod' ? 'Place COD order' : 'Proceed to pay'} <ChevronRight size={18} /></button><p className={styles.safe}><LockKeyhole size={13} /> Safe and secure payments</p>{message && <p className={styles.error}>{message}</p>}</aside>
+        <aside className={styles.summary}><h2>Order summary</h2>{items.length ? <div className={styles.itemList}>{items.map((item) => <div className={styles.item} key={item.id}><span><b>{item.name}</b><small>{item.quantity || 1} × {item.rx ? 'Prescription required' : 'OTC medicine'}</small></span><strong>₹{item.price * (item.quantity || 1)}</strong></div>)}</div> : <div className={styles.empty}>Your cart is empty. Add items to continue.</div>}<div className={styles.bill}><div><span>Item total</span><b>₹{subtotal}</b></div><div><span>Delivery fee</span><b>₹{items.length ? deliveryFee : 0}</b></div>{discount > 0 && <div className={styles.saving}><span>Extra savings</span><b>− ₹{discount}</b></div>}<div className={styles.total}><span>To pay</span><b>₹{total}</b></div></div><button className={styles.payButton} type="submit" disabled={!items.length || placingOrder}>{placingOrder ? 'Placing order…' : paymentMethod === 'cod' ? 'Place COD order' : 'Proceed to pay'} <ChevronRight size={18} /></button><p className={styles.safe}><LockKeyhole size={13} /> Safe and secure payments</p>{message && <p className={styles.error}>{message}</p>}</aside>
       </form>
       <div className={styles.delivery}><Truck size={21} /><span><b>Fast, careful delivery</b><small>Most eligible orders arrive within 24–48 hours.</small></span></div>
     </section>
