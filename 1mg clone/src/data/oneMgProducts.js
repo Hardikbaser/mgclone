@@ -7,7 +7,7 @@ const oneMgProducts = [
     mrp: 33.6,
     discountPercent: 12,
     isRxRequired: false,
-    image: 'https://placehold.co/300x300/f6f6f6/555?text=Dolo+650',
+    image: '/assets/products/dolo-650.jpg',
   },
   {
     id: 'cetirizine-10',
@@ -17,7 +17,7 @@ const oneMgProducts = [
     mrp: 22.5,
     discountPercent: 10,
     isRxRequired: false,
-    image: 'https://placehold.co/300x300/f6f6f6/555?text=Cetirizine',
+    image: '/assets/products/cetirizine-10.jpg',
   },
   {
     id: 'healthkart-multivitamin',
@@ -27,7 +27,7 @@ const oneMgProducts = [
     mrp: 699,
     discountPercent: 25,
     isRxRequired: false,
-    image: 'https://placehold.co/300x300/f6f6f6/555?text=Multivitamin',
+    image: '/assets/products/healthkart-multivitamin.jpg',
   },
   {
     id: 'vitamin-d3',
@@ -37,7 +37,7 @@ const oneMgProducts = [
     mrp: 126,
     discountPercent: 15,
     isRxRequired: true,
-    image: 'https://placehold.co/300x300/f6f6f6/555?text=Vitamin+D3',
+    image: '/assets/products/vitamin-d3-60k.jpg',
   },
 ];
 

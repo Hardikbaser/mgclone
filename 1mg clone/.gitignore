@@ -35,6 +35,8 @@ playwright-report/
 *.tsbuildinfo
 *.tmp
 *.temp
+__pycache__/
+*.py[cod]
 
 # Local databases and backups
 *.sqlite

@@ -1,8 +1,12 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-if (!API_URL) {
+if (!configuredApiUrl) {
   throw new Error('NEXT_PUBLIC_API_URL is not configured.');
 }
+
+// Accept either http://localhost:5000 or http://localhost:5000/api in env files,
+// then keep a single canonical API prefix for every browser request.
+const API_URL = `${configuredApiUrl.replace(/\/+$/, '').replace(/\/api$/, '')}/api`;
 
 type ApiOptions = Omit<RequestInit, 'body'> & {
   body?: BodyInit | Record<string, unknown> | null;
@@ -12,8 +16,9 @@ type ApiOptions = Omit<RequestInit, 'body'> & {
 export async function apiFetch(path: string, options: ApiOptions = {}) {
   const { body, headers, ...requestOptions } = options;
   const isJsonBody = body !== null && typeof body === 'object' && !(body instanceof FormData) && !(body instanceof URLSearchParams) && !(body instanceof Blob);
+  const endpoint = path.replace(/^\/?api(?:\/|$)/, '').replace(/^\//, '');
 
-  return fetch(`${API_URL}${path.startsWith('/') ? path : `/${path}`}`, {
+  return fetch(`${API_URL}/${endpoint}`, {
     ...requestOptions,
     credentials: 'include',
     headers: {
