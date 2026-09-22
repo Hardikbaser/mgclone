@@ -1,8 +1,6 @@
 const { postgres } = require('../config/database');
 
-const normalizeItems = (items) => Array.isArray(items)
-  ? items.filter((item) => item && typeof item.id === 'string' && typeof item.name === 'string' && Number.isFinite(Number(item.price)))
-  : null;
+const { priceCart } = require('../utils/cartPricing');
 
 exports.getCart = async (req, res, next) => {
   try {
@@ -13,13 +11,12 @@ exports.getCart = async (req, res, next) => {
 
 exports.updateCart = async (req, res, next) => {
   try {
-    const items = normalizeItems(req.body?.items);
-    if (!items) return res.status(400).json({ message: 'Cart items must be an array.' });
+    const { items: trustedItems } = await priceCart(postgres, req.body?.items);
     const { rows } = await postgres.query(
       `INSERT INTO carts (user_id, items) VALUES ($1, $2::jsonb)
        ON CONFLICT (user_id) DO UPDATE SET items = EXCLUDED.items, updated_at = NOW()
        RETURNING items`,
-      [req.user.id, JSON.stringify(items)],
+      [req.user.id, JSON.stringify(trustedItems)],
     );
     res.json({ items: rows[0].items });
   } catch (error) { next(error); }

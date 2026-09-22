@@ -1,11 +1,14 @@
 const crypto = require('crypto');
+const { postgres } = require('../config/database');
+const { priceCart } = require('../utils/cartPricing');
 
 const razorpayConfigured = () => process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET;
 
 exports.createRazorpayOrder = async (req, res, next) => {
   try {
     if (!razorpayConfigured()) return res.status(503).json({ message: 'Razorpay Test Mode keys are not configured.' });
-    const rupees = Number(req.body?.amount);
+    const quote = await priceCart(postgres, req.body?.items);
+    const rupees = quote.total;
     if (!Number.isFinite(rupees) || rupees <= 0) return res.status(400).json({ message: 'A valid payment amount is required.' });
 
     const response = await fetch('https://api.razorpay.com/v1/orders', {
@@ -14,7 +17,7 @@ exports.createRazorpayOrder = async (req, res, next) => {
         Authorization: `Basic ${Buffer.from(`${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`).toString('base64')}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ amount: Math.round(rupees * 100), currency: 'INR', receipt: `1mg_${Date.now()}`, notes: { user_id: req.user.id } }),
+      body: JSON.stringify({ amount: Math.round(rupees * 100), currency: 'INR', receipt: `1mg_${Date.now()}`, notes: { user_id: req.user.id, cart_fingerprint: quote.fingerprint } }),
     });
     const payload = await response.json();
     if (!response.ok) return res.status(response.status).json({ message: payload?.error?.description || 'Unable to create a Razorpay order.' });

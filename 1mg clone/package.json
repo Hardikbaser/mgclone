@@ -1,1 +1,30 @@
-{"name":"one-mg-clone","version":"1.0.0","private":true,"scripts":{"dev":"next dev","dev:clean":"rimraf .next && next dev","build":"next build","start":"next start","lint":"next lint","backend:dev":"npm --prefix backend run dev","backend:start":"npm --prefix backend start"},"dependencies":{"@types/node":"latest","@types/react":"latest","@types/react-dom":"latest","lucide-react":"latest","next":"latest","react":"latest","react-dom":"latest","rimraf":"^6.0.1","typescript":"latest","zustand":"^5.0.15"}}
+{
+  "name": "one-mg-clone",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:clean": "rimraf .next && next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint app components lib src --no-warn-ignored",
+    "backend:dev": "npm --prefix backend run dev",
+    "backend:start": "npm --prefix backend start"
+  },
+  "dependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "lucide-react": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "rimraf": "^6.0.1",
+    "typescript": "latest",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.4"
+  }
+}

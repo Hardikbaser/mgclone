@@ -1,0 +1,4 @@
+import fs from 'node:fs';
+const d=JSON.parse(fs.readFileSync('qa/labs-official-bottom.json','utf8'));const details=JSON.parse(fs.readFileSync('qa/labs-reference-details.json','utf8'));
+const urls=[...new Set([...d.images.filter(i=>i.src.startsWith('https://onemg.gumlet.io/')&&i.w>0).slice(0,34).map(i=>i.src),...details.details.filter(i=>i.bg!=='none').map(i=>i.bg.slice(5,-2))])];
+fs.mkdirSync('public/assets/labs',{recursive:true});const manifest={};await Promise.all(urls.map(async url=>{const name=decodeURIComponent(new URL(url).pathname).split('/').pop();const out='public/assets/labs/'+name;if(!fs.existsSync(out)){const r=await fetch(url);if(!r.ok)throw Error(url);fs.writeFileSync(out,Buffer.from(await r.arrayBuffer()))}manifest[name]='/assets/labs/'+encodeURIComponent(name)}));fs.writeFileSync('app/labs/images.json',JSON.stringify(manifest,null,2));console.log(Object.keys(manifest));

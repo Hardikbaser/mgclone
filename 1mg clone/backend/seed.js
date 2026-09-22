@@ -1,6 +1,5 @@
 require('dotenv').config();
-const Product = require('./models/Product');
-const { connectDatabases } = require('./config/database');
+const { connectDatabases, postgres } = require('./config/database');
 
 const asset = (name) => `/assets/products/${name}`;
 const products = [
@@ -30,10 +29,17 @@ const products = [
   { name: 'Vicks Vaporub', composition: 'Menthol and camphor balm', price: 88, mrp: 105, brand: 'Vicks', category: 'Cold and cough', stock: 92, image: asset('vicks-vaporub.jpg') },
 ];
 
+const slugify = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
 connectDatabases().then(async () => {
-  await Product.bulkWrite(products.map((product) => ({
-    updateOne: { filter: { name: product.name }, update: { $set: product }, upsert: true },
-  })));
-  console.log('Product catalog seeded');
-  process.exit(0);
-}).catch((error) => { console.error(error); process.exit(1); });
+  for (const product of products) {
+    await postgres.query(
+      `INSERT INTO products (name, slug, composition, brand, category, price, mrp, stock, image, is_rx_required)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+       ON CONFLICT (slug) DO UPDATE SET name=EXCLUDED.name, composition=EXCLUDED.composition, brand=EXCLUDED.brand, category=EXCLUDED.category, price=EXCLUDED.price, mrp=EXCLUDED.mrp, stock=EXCLUDED.stock, image=EXCLUDED.image, is_rx_required=EXCLUDED.is_rx_required, updated_at=NOW()`,
+      [product.name, slugify(product.name), product.composition, product.brand, product.category, product.price, product.mrp, product.stock, product.image, Boolean(product.isRxRequired)],
+    );
+  }
+  console.log(`PostgreSQL product catalog seeded (${products.length} products).`);
+  await postgres.end();
+}).catch(async (error) => { console.error(error); await postgres.end(); process.exitCode = 1; });

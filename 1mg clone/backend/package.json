@@ -4,7 +4,7 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "nodemon --legacy-watch server.js",
     "start": "node server.js",
     "seed": "node seed.js"
   },
@@ -17,7 +17,6 @@
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.24.4",
     "nodemailer": "^6.9.16",
     "pg": "^8.13.1"
   },

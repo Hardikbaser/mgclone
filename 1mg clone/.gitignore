@@ -69,3 +69,6 @@ Desktop.ini
 .razorpay/
 .firebase/
 .wrangler/
+
+# Local npm download cache
+.npm-cache/

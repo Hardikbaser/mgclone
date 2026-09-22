@@ -1,0 +1,4082 @@
+function getDeviceVal(){
+  return navigator.userAgent && navigator.userAgent.indexOf("Mobile") > -1
+  ? "mobile"
+  : "desktop";
+}
+function getUserId(){
+  return document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("userId="))
+  ?.split("=")[1];
+}
+// Function returns  json for rudder analytics
+
+function getJson(action) {
+  let json = {};
+  let deviceVal =
+    navigator.userAgent && navigator.userAgent.indexOf("Mobile") > -1
+      ? "mobile"
+      : "desktop";
+  let UserID = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("userId="))
+    ?.split("=")[1];
+  switch (action) {
+    // Events for Diagnostics Page
+    case "SearchBarClicked":
+      json = {
+        action: "search_bar_clicked",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SearchBarInitiated":
+      json = {
+        action: "search_typed",
+        rudderData: {
+          label: { search_keyword: "" },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SearchResultClicked":
+      json = {
+        action: "search_result_clicked",
+        rudderData: {
+          label: { search_position: "", sku_id: "" },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SearchResultClicked":
+      json = {
+        action: "search_result_clicked",
+        rudderData: {
+          label: { search_position: "", sku_id: "" },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerLabCtaClicked":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: { sku_id: "", tags: "" },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "ShowMoreCtaClicked":
+      json = {
+        action: "show_more_cta_clicked",
+        rudderData: {
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerLabFlitersChecked":
+      json = {
+        action: "cancer_lab_fliters_checked",
+        rudderData: {
+          label: { filterChecked: "", checked: "" },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerLabCtaClicked1":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: { sku_id: "genecore-predict-basic-35241", tags: "Screening" },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerLabCtaClicked2":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: {
+            sku_id: "genecore-predict-advance-35243",
+            tags: "Screening",
+          },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+    case "CancerLabCtaClicked3":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: {
+            sku_id: "mutation-specific-testing-35250",
+            tags: "Screening",
+          },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerLabCtaClicked4":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: { sku_id: "oncosense-35314", tags: "Screening" },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerLabCtaClicked5":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: {
+            sku_id:
+              "Comprehensive-Hereditary-Cancer-Gene-Panel-(SNV,-Small-INDELs-and-CNVs)-35257",
+            tags: "Screening",
+          },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerLabCtaClicked6":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: {
+            sku_id: "Hereditary-Cancer-Gene-Panel-35255",
+            tags: "Screening",
+          },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+    case "CancerLabCtaClicked7":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: {
+            sku_id:
+              "Comprehensive-Leukemia-Panel-(SNVs,-Small-INDELs,-CNVs-and-Fusions)-35384",
+            tags: "Screening",
+          },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+    case "CancerLabCtaClicked8":
+      // to be update sku id
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: {
+            sku_id:
+              "Comprehensive-Leukemia-Panel-(SNVs,-Small-INDELs,-CNVs-and-Fusions)-35384",
+            tags: "Screening",
+          },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+    case "CancerLabCtaClicked9":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: {
+            sku_id: "Bone-Marrow-Failure-Syndrome-Gene-Panel-35381",
+            tags: "Screening",
+          },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+    case "CancerLabCtaClicked10":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: {
+            sku_id: "Whole-Exome-Sequencing-(80-100x)-34123",
+            tags: "Screening",
+          },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+    case "CancerLabCtaClicked11":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: {
+            sku_id: "Clinical-Exome-10000-genes-36171",
+            tags: "Screening",
+          },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+    case "CancerLabCtaClicked12":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: { sku_id: "EasyCheck360-35010", tags: "Screening" },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+    case "CancerLabCtaClicked13":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: { sku_id: "EasyCheck-Femmesafe-35011", tags: "Screening" },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+    case "CancerLabCtaClicked14":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: { sku_id: "EasyCheck-Diabetes-35012", tags: "Screening" },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+    case "CancerLabCtaClicked15":
+      json = {
+        action: "book_test_cta_clicked",
+        rudderData: {
+          label: { sku_id: "EasyCheck-Prostate-35013", tags: "Screening" },
+          category: "cancer_diagnostics_page",
+          device: deviceVal,
+        },
+      };
+      break;
+    // Events for new header
+    case "GetSecondOpinionCtaClicked":
+      json = {
+        action: "second_opinion_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Get Second opinion",
+          cta_position: "upper_section",
+        },
+      };
+      break;
+
+    case "GetSecondOpinionCtaClickedheader":
+      json = {
+        action: "second_opinion_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Get Second opinion",
+          cta_position: "header",
+        },
+      };
+      break;
+
+    case "FindCancerSpecialistsCtaClicked":
+      json = {
+        action: "find_cancer_specialists_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Find Cancer Specialists",
+          cta_position: "upper_section",
+        },
+      };
+      break;
+    case "FindCancerSpecialistsCtaClickedheader":
+      json = {
+        action: "find_cancer_specialists_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Find Cancer Specialists",
+          cta_position: "header",
+        },
+      };
+      break;
+
+    case "BuyCancerMedicinesCtaClicked":
+      json = {
+        action: "buy_cancer_medicines_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Buy Cancer Medicines",
+          cta_position: "upper_section",
+        },
+      };
+      break;
+
+    case "BuyCancerMedicinesCtaClickedheader":
+      json = {
+        action: "buy_cancer_medicines_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Buy Cancer Medicines",
+          cta_position: "header",
+        },
+      };
+      break;
+
+    case "BookTestsforCancerCtaClicked":
+      json = {
+        action: "book_tests_for_Cancer_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Book Tests for Cancer",
+          cta_position: "upper_section",
+        },
+      };
+      break;
+
+    case "BookTestsforCancerCtaClickedheader":
+      json = {
+        action: "book_tests_for_Cancer_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Book Tests for Cancer",
+          cta_position: "header",
+        },
+      };
+      break;
+
+    case "GetFinancialSupportCtaClicked":
+      json = {
+        action: "get_financial_support_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Get Financial Support",
+          cta_position: "upper_section",
+        },
+      };
+      break;
+
+    case "GetFinancialSupportCtaClickedheader":
+      json = {
+        action: "get_financial_support_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Get Financial Support",
+          cta_position: "header",
+        },
+      };
+      break;
+
+    case "ExplorePatientSupportProgramsCtaClicked":
+      json = {
+        action: "explore_patient_support_programs_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Explore Patient Support Programs",
+          cta_position: "upper_section",
+        },
+      };
+      break;
+
+    case "ExplorePatientSupportProgramsCtaClickedheader":
+      json = {
+        action: "explore_patient_support_programs_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Explore Patient Support Programs",
+          cta_position: "header",
+        },
+      };
+      break;
+
+    case "AccessNGOsCtaClicked":
+      json = {
+        action: "access_ngos_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Access NGOs",
+          cta_position: "upper_section",
+        },
+      };
+      break;
+
+    case "AccessNGOsCtaClickedheader":
+      json = {
+        action: "access_ngos_page_visited",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          cta_name: "Access NGOs",
+          cta_position: "header",
+        },
+      };
+      break;
+
+    // Adding events for lung start show page
+
+    case "ConsultationCtaClicked":
+      json = {
+        action: "consultation_cta_clicked",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "pfizer_ pneumococcal_campaign",
+          device: deviceVal,
+          cta_name: "consultation_cta",
+        },
+      };
+      break;
+
+    case "SectionalCtaClicked1":
+      json = {
+        action: "sectional_cta_clicked",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "pfizer_ pneumococcal_campaign",
+          device: deviceVal,
+          cta_name: "What is Pneumococcal Disease?",
+        },
+      };
+      break;
+
+    case "SectionalCtaClicked2":
+      json = {
+        action: "sectional_cta_clicked",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "pfizer_ pneumococcal_campaign",
+          device: deviceVal,
+          cta_name: "Who’s Most at Risk?",
+        },
+      };
+      break;
+
+    case "SectionalCtaClicked3":
+      json = {
+        action: "sectional_cta_clicked",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "pfizer_ pneumococcal_campaign",
+          device: deviceVal,
+          cta_name: "What can you do?",
+        },
+      };
+      break;
+
+    case "SectionalCtaClicked4":
+      json = {
+        action: "sectional_cta_clicked",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "pfizer_ pneumococcal_campaign",
+          device: deviceVal,
+          cta_name: "Vaccination",
+        },
+      };
+      break;
+
+    case "GetSecondOpinionCta":
+      json = {
+        action: "get_second_opinion_cta",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SecondOpinionContactTeamCta1":
+      json = {
+        action: "second_opinion_contact_team_cta",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          section_name: "top_section",
+        },
+      };
+      break;
+
+    case "SecondOpinionContactTeamCta2":
+      json = {
+        action: "second_opinion_contact_team_cta",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          section_name: "have_questions?",
+        },
+      };
+      break;
+
+    case "SecondOpinionSampleTreatmentCta":
+      json = {
+        action: "second_opinion_sample_treatment_cta",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "FaqClick1":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text:
+            "How does second opinion help in cancer diagnosis or treatment?",
+        },
+      };
+      break;
+
+    case "FaqClick2":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text:
+            "What's the difference between teleconsultation and a Navya expert's opinion?",
+        },
+      };
+      break;
+
+    case "FaqClick3":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text:
+            " How will my physician / treating oncologist react? Will they mind?",
+        },
+      };
+      break;
+
+    case "FaqClick1":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text:
+            "How can the doctors give an opinion without examining the patient?",
+        },
+      };
+      break;
+
+    case "FaqClick4":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text:
+            "How can the doctors give an opinion without examining the patient?",
+        },
+      };
+      break;
+
+    case "FaqClick5":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text: "Who is a patient advocate?",
+        },
+      };
+      break;
+
+    case "FaqClick6":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text:
+            "I want to have an in-person consultation with the doctors.",
+        },
+      };
+      break;
+
+    case "FaqClick7":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text:
+            "Can I choose a specific doctor for my online expert opinion? Will I get a one-on-one call with the experts?",
+        },
+      };
+      break;
+
+    case "FaqClick8":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text:
+            "What's the processing fee? Is it a one time Opinion fee? For how long will it be valid?",
+        },
+      };
+      break;
+
+    case "FaqClick9":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text: " What impact has Navya had on patient’s treatment?",
+        },
+      };
+      break;
+
+    case "FaqClick10":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text: "Will my insurance cover a second opinion?",
+        },
+      };
+      break;
+
+    case "FaqClick11":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text: "Are my payment and medical records safe?",
+        },
+      };
+      break;
+
+    case "FaqClick12":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text:
+            " I need a follow up opinion on my case. Will I need to repay?",
+        },
+      };
+      break;
+
+    case "FaqClick13":
+      json = {
+        action: "faq_click",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "CancerPage",
+          device: deviceVal,
+          faq_text: "Can I get a refund for the service if I am not satisfied?",
+        },
+      };
+      break;
+
+    //new widgets instrumentation
+    case "CancerMedicineSearchBarClick":
+      json = {
+        action: "cancer_medicine_search_bar_click",
+        rudderData: {
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerMedicineSearchInitiated":
+      json = {
+        action: "cancer_medicine_search_initiated",
+        rudderData: {
+          label: { search_keyword: "" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerSupplementCtaClick1":
+      json = {
+        action: "cancer_supplement_cta_click",
+        rudderData: {
+          label: { section_name: "Protein supplements" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerSupplementCtaClick2":
+      json = {
+        action: "cancer_supplement_cta_click",
+        rudderData: {
+          label: { section_name: "Curcumin/ Turmeric" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerSupplementCtaClick3":
+      json = {
+        action: "cancer_supplement_cta_click",
+        rudderData: {
+          label: { section_name: "Omega 3 fatty acids" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerExpertConsultCtaClick":
+      json = {
+        action: "cancer_expert_consult_cta_click",
+        rudderData: {
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerCallSupportCtaCick":
+      json = {
+        action: "cancer_call_support_cta_click",
+        rudderData: {
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerTipsScrollMade1":
+      json = {
+        action: "cancer_tips_scroll_made",
+        rudderData: {
+          category: "CancerPage",
+          device: deviceVal,
+          scroll_length_percentage: "16.66%",
+        },
+      };
+      break;
+    case "CancerTipsScrollMade2":
+      json = {
+        action: "cancer_tips_scroll_made",
+        rudderData: {
+          category: "CancerPage",
+          device: deviceVal,
+          scroll_length_percentage: "33.32%",
+        },
+      };
+      break;
+    case "CancerTipsScrollMade3":
+      json = {
+        action: "cancer_tips_scroll_made",
+        rudderData: {
+          category: "CancerPage",
+          device: deviceVal,
+          scroll_length_percentage: "49.98%",
+        },
+      };
+      break;
+    case "CancerTipsScrollMade4":
+      json = {
+        action: "cancer_tips_scroll_made",
+        rudderData: {
+          category: "CancerPage",
+          device: deviceVal,
+          scroll_length_percentage: "66.64%",
+        },
+      };
+      break;
+    case "CancerTipsScrollMade5":
+      json = {
+        action: "cancer_tips_scroll_made",
+        rudderData: {
+          category: "CancerPage",
+          device: deviceVal,
+          scroll_length_percentage: "83.3%",
+        },
+      };
+      break;
+    case "CancerTipsScrollMade6":
+      json = {
+        action: "cancer_tips_scroll_made",
+        rudderData: {
+          category: "CancerPage",
+          device: deviceVal,
+          scroll_length_percentage: "99.96%",
+        },
+      };
+      break;
+
+    case "CancerTipsCtaClick1":
+      json = {
+        action: "cancer_tips_cta_click",
+        rudderData: {
+          label: {
+            section_name: "Be informed about your treatment",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerTipsCtaClick2":
+      json = {
+        action: "cancer_tips_cta_click",
+        rudderData: {
+          label: {
+            section_name: "Ease financial stress",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    // CANCER CARE HOME PAGE
+
+    case "FindCancerSpecialists":
+      json = {
+        action: "FindCancerSpecialists",
+        rudderData: {
+          label: { source: "top_navigation" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "BuyMedicines":
+      json = {
+        action: "BuyMedicines",
+        rudderData: {
+          label: { source: "top_navigation" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "GetFinancialSupport":
+      json = {
+        action: "GetFinancialSupport",
+        rudderData: {
+          label: { source: "top_navigation" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "BookTests":
+      json = {
+        action: "BookTests",
+        rudderData: {
+          label: { source: "top_navigation" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "ExplorePSP":
+      json = {
+        action: "ExplorePSP",
+        rudderData: {
+          label: { source: "top_navigation" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "AccessNGO":
+      json = {
+        action: "AccessNGO",
+        rudderData: {
+          label: { source: "top_navigation" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "FindCancerSpecialistsWidget":
+      json = {
+        action: "FindCancerSpecialists",
+        rudderData: {
+          label: { source: "widget" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "FindCancerSpecialistsPageNeedHelp":
+      json = {
+        action: "NeedHelp",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "FindSpecialistPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "FindCancerSpecialistsPageChatIcon":
+      json = {
+        action: "ChatIcon",
+        rudderData: {
+          label: "Click",
+          category: "FindSpecialistPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "BuyMedicinesWidget":
+      json = {
+        action: "BuyMedicines",
+        rudderData: {
+          label: { source: "widget" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "GetFinancialSupportWidget":
+      json = {
+        action: "GetFinancialSupport",
+        rudderData: {
+          label: { source: "widget" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "BookTestsWidget":
+      json = {
+        action: "BookTests",
+        rudderData: {
+          label: { source: "widget" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "ExplorePSPWidget":
+      json = {
+        action: "ExplorePSP",
+        rudderData: {
+          label: { source: "widget" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "AccessNGOWidget":
+      json = {
+        action: "AccessNGO",
+        rudderData: {
+          label: { source: "widget" },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetAboutBreastCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "About",
+            typeOfCancer: "BreastCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetAboutBloodCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "About",
+            typeOfCancer: "BloodCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetAboutColonCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "About",
+            typeOfCancer: "ColonCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetAboutProstateCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "About",
+            typeOfCancer: "ProstateCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetAboutLungCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "About",
+            typeOfCancer: "LungCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetAboutMultipleMyeloma":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "About",
+            typeOfCancer: "MultipleMyeloma",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetAboutKidneyCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "About",
+            typeOfCancer: "KidneyCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetAboutCervicalCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "About",
+            typeOfCancer: "CervicalCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetSupportProgramBreastCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "SupportProgram",
+            typeOfCancer: "BreastCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetSupportProgramBloodCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "SupportProgram",
+            typeOfCancer: "BloodCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetSupportProgramColonCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "SupportProgram",
+            typeOfCancer: "ColonCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetSupportProgramProstateCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "SupportProgram",
+            typeOfCancer: "ProstateCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetSupportProgramLungCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "SupportProgram",
+            typeOfCancer: "LungCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetSupportProgramMultipleMyeloma":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "SupportProgram",
+            typeOfCancer: "MultipleMyeloma",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetSupportProgramKidneyCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "SupportProgram",
+            typeOfCancer: "KidneyCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetSupportProgramCervicalCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "SupportProgram",
+            typeOfCancer: "CervicalCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetNGOBreastCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "NGO",
+            typeOfCancer: "BreastCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetNGOBloodCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "NGO",
+            typeOfCancer: "BloodCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetNGOColonCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "NGO",
+            typeOfCancer: "ColonCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetNGOProstataCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "NGO",
+            typeOfCancer: "ProstateCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetNGOLungCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "NGO",
+            typeOfCancer: "LungCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetNGOMultipleMyeloma":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "NGO",
+            typeOfCancer: "MultipleMyeloma",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetNGOKidneyCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "NGO",
+            typeOfCancer: "KidneyCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerWidgetNGOCervicalCancer":
+      json = {
+        action: "CancerWidget",
+        rudderData: {
+          label: {
+            cta: "NGO",
+            typeOfCancer: "CervicalCancer",
+          },
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "GetHere":
+      json = {
+        action: "GetHere",
+        rudderData: {
+          label: "Click",
+          category: "CancerPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    // FIND CANCER SPECIALIST
+
+    case "SeekCare":
+      json = {
+        action: "SeekCare",
+        rudderData: {
+          label: "Click",
+          category: "FindSpecialistPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "TypesOfSpecialists":
+      json = {
+        action: "TypesOfSpecialists",
+        rudderData: {
+          label: "Click",
+          category: "FindSpecialistPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "FindCancerSpecialistsCancerPage":
+      json = {
+        action: "FindCancerSpecialists",
+        rudderData: {
+          label: "Click",
+          category: "FindSpecialistPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    // DIAGNOSTICS PAGE
+
+    case "ViewPackages":
+      json = {
+        action: "ViewPackages",
+        rudderData: {
+          label: "Click",
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "BookScreeningTestMultiCancer":
+      json = {
+        action: "BookScreeningTest",
+        rudderData: {
+          label: { typeOfTest: "MultiCancer", Sku_id: "easycheck360-35010" },
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "BookScreeningTestWomenCancer":
+      json = {
+        action: "BookScreeningTest",
+        rudderData: {
+          label: {
+            typeOfTest: "WomenCancer",
+            Sku_id: "easycheck-femmesafe-35011",
+          },
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "BookScreeningTestProstateCancer":
+      json = {
+        action: "BookScreeningTest",
+        rudderData: {
+          label: {
+            typeOfTest: "ProstateCancer",
+            Sku_id: "easycheck-prostate-35013",
+          },
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "BookScreeningTestProstateSpecificAntigenProfile":
+      json = {
+        action: "BookScreeningTest",
+        rudderData: {
+          label: {
+            typeOfTest: "ProstateSpecificAntigenProfile",
+            Sku_id: "prostate-specific-antigen-profile-32560",
+          },
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "BookScreeningTestProstateSpecificAntigen":
+      json = {
+        action: "BookScreeningTest",
+        rudderData: {
+          label: {
+            typeOfTest: "ProstateSpecificAntigen",
+            Sku_id: "prostate-specific-antigen-1994",
+          },
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "BookScreeningTestCancerDiabetes":
+      json = {
+        action: "BookScreeningTest",
+        rudderData: {
+          label: {
+            typeOfTest: "CancerDiabetes",
+            Sku_id: "easycheck-diabetes-35012",
+          },
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "BookScreeningTestCBC":
+      json = {
+        action: "BookScreeningTest",
+        rudderData: {
+          label: { typeOfTest: "CBC", Sku_id: "complete-blood-count-1717" },
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "BookScreeningTestSearchMoreTests":
+      json = {
+        action: "BookScreeningTest",
+        rudderData: {
+          label: { typeOfTest: "SearchMoreTests" },
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "PreChemoPackage":
+      json = {
+        action: "book_package_cta_clicked",
+        rudderData: {
+          label: "Click",
+          label: {
+            sku_id: "pre-chemotherapy-package-35089",
+            tags: { tag1: "Prognosis", tag2: "Multi Cancer" },
+          },
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "PostChemoPackage":
+      json = {
+        action: "book_package_cta_clicked",
+        rudderData: {
+          label: "Click",
+          label: {
+            sku_id: "post-chemotherapy-package-35090",
+            tags: { tag1: "Screening", tag2: "Multi Cancer" },
+          },
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SchedulePreChemoTest":
+      json = {
+        action: "SchedulePreChemoTest",
+        rudderData: {
+          label: "Click",
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SchedulePostChemoTest":
+      json = {
+        action: "SchedulePostChemoTest",
+        rudderData: {
+          label: "Click",
+          category: "DiagnosticsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    // PSP
+
+    case "FindSuitableProgram":
+      json = {
+        action: "FindSuitableProgram",
+        rudderData: {
+          label: "Click",
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "ReadBenefits":
+      json = {
+        action: "ReadBenefits",
+        rudderData: {
+          label: "Click",
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "NeedInfoScheme":
+      json = {
+        action: "SchemeInfo",
+        rudderData: {
+          label: "Click",
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "FindProgram":
+      json = {
+        action: "FindProgram",
+        rudderData: {
+          label: "Click",
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "FAQ":
+      json = {
+        action: "FAQ",
+        rudderData: {
+          label: "Click",
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "PSPCall":
+      json = {
+        action: "Call",
+        rudderData: {
+          label: { User_id: UserID },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    // LEARN MORE PSP SECTION BEGINS
+
+    case "LearnMoreObnyx":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Obnyx Capsule",
+            Sku_id: "obnyx-capsule-653330",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreImbruvica":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Imbruvica",
+            Sku_id: "imbruvica-140mg-capsule-794287",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreDarzalex400":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Darzalex Injection (400mg/ 20mL)",
+            Sku_id: "darzalex-400mg-injection-530982",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreDarzalex100":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Darzalex Injection (100mg/ 5mL)",
+            Sku_id: "darzalex-injection-532505",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreVelcade":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Velcade 3.5mg Injection",
+            Sku_id: "velcade-3.5mg-injection-75866",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreVelcade1mg":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Velcade 1mg Injection",
+            Sku_id: "velcade-1mg-injection-358382",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreDacoplice":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Dacoplice 15mg Tablet",
+            Sku_id: "dacoplice-15mg-tablet",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreDacoplice30mg":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Dacoplice 30mg Tablet",
+            Sku_id: "dacoplice-30mg-tablet-767485",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreDacoplice45mg":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Dacoplice 45mg Tablet",
+            Sku_id: "dacoplice-45mg-tablet-767487",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreLorbriqua":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Lorbriqua 25mg Tablet",
+            Sku_id: "lorbriqua-25mg-tablet",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreLorbriqua100mg":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Lorbriqua 100mg Tablet",
+            Sku_id: "lorbriqua-100mg-tablet-767491",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMorePalbace":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Palbace 125mg Capsule",
+            Sku_id: "palbace-125mg-capsule-767471",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMorePalbace100mg":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Palbace 100mg Capsule",
+            Sku_id: "palbace-100mg-capsule-767469",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMorePalbace75mg":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Palbace 75mg Capsule",
+            Sku_id: "palbace-75mg-capsule-767467",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreCrizalk":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Crizalk 250mg Capsule",
+            Sku_id: "crizalk-250mg-tablet",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreAromasin":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Aromasin 25mg Tablet",
+            Sku_id: "aromasin-25mg-tablet",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreCampto":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Campto",
+            Sku_id: "campto-100mg-injection-794255?q=campto",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMorePrimciv":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Primciv 125mg",
+            Sku_id: "primcyv-125mg-capsule-764611",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMorePrimciv100mg":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Primciv 100mg",
+            Sku_id: "primcyv-100mg-capsule-764604",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMorePrimciv75mg":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Primciv 75mg",
+            Sku_id: "primcyv-75mg-capsule-764606",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreRolimus":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Rolimus 10 Tablet",
+            Sku_id: "rolimus-10-tablet-334115",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreRolimus5":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Rolimus 5 Tablet",
+            Sku_id: "rolimus-5-tablet-269287",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreXbira":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Xbira 500 Tablet",
+            Sku_id: "xbira-500-tablet-672440",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreXbira250mg":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Xbira 250mg Tablet",
+            Sku_id: "xbira-250mg-tablet-234116",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMorePazoci":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Pazoci 400 Tablet",
+            Sku_id: "pazoci-400-tablet-702081",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMorePazoci200":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Pazoci 200 Tablet",
+            Sku_id: "pazoci-200-tablet-702080",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreBeedan":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Beedan 50mg Tablet",
+            Sku_id: "beedan-50mg-tablet-683637",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreCabotib":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Cabotib 60 Tablet",
+            Sku_id: "cabotib-60-tablet-700156",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreAdbiron":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Adbiron 250mg Tablet",
+            Sku_id: "adbiron-250mg-tablet-728607",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreKyprolis":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Kyprolis 60mg Injection",
+            Sku_id: "kyprolis-60mg-injection-470640",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreBdparib":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Bdparib 300mg Tablet",
+            Sku_id: "bdparib-300-tablet-683556",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreKryxana":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Kryxana 200mg Tablet",
+            Sku_id: "kryxana-200mg-tablet-536547",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreFaslodex":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Faslodex 250mg Injection",
+            Sku_id: "kryxana-200mg-tablet-536547",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreSpexib":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Spexib 150mg Capsule",
+            Sku_id: "spexib-capsule-369553",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreErbitux":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Erbitux 100mg Injection",
+            Sku_id: "erbitux-100mg-infusion-321771",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreErbitux500mg":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Erbitux 500mg Injection",
+            Sku_id: "erbitux-500mg-infusion-166599",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreAdvamab":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Advamab 100mg Injection",
+            Sku_id: "advamab-100mg-injection-415995",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreAdvamab400mg":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Advamab 400mg Injection",
+            Sku_id: "advamab-400-injection-682806",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreAlkeprost":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Alkeprost 250mg Tablet",
+            Sku_id: "alkeprost-250mg-tablet-369504",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreEmbremma":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Embremma 0.5mg Injection",
+            Sku_id: "embremma-injection-683722",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreNeuzumab":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: {
+            Medicine_Name: "Neuzumab 440mg Injection",
+            Sku_id: "neuzumab-440mg-injection-429333",
+          },
+          category: "PSP",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    // LEARN MORE PSP SECTION ENDS
+
+    // FINANCE
+
+    case "ReimbursementSchemes":
+      json = {
+        action: "ReimbursementSchemes",
+        rudderData: {
+          label: "Click",
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "FundingSchemes":
+      json = {
+        action: "FundingSchemes",
+        rudderData: {
+          label: "Click",
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CrowdfundingPlatforms":
+      json = {
+        action: "CrowdfundingPlatforms",
+        rudderData: {
+          label: "Click",
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "PSP":
+      json = {
+        action: "PSP",
+        rudderData: {
+          label: "Click",
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "Explore":
+      json = {
+        action: "Explore",
+        rudderData: {
+          label: "Click",
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "ReimbursementDropdown":
+      json = {
+        action: "ReimbursementDropdown",
+        rudderData: {
+          label: "Click",
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementAssam":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Assam" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementWestBengal":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "West Bengal" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementSikkim":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Sikkim" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementAndhraPradesh":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Andhra Pradesh" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementArunachalPradesh":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Arunachal Pradesh" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementBihar":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Bihar" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementChhattisgarh":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Chhattisgarh" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementGoa":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Goa" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementGujarat":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Gujarat" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementHaryana":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Haryana" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementHimachalPradesh":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Himachal Pradesh" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementJharkhand":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Jharkhand" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementKarnataka":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Karnataka" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementKerala":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Kerala" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementMadhyaPradesh":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Madhya Pradesh" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementMaharashtra":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Maharashtra" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementManipur":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Manipur" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementMeghalaya":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Meghalaya" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementMizoram":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Mizoram" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementNagaland":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Nagaland" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementOdisha":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Odisha" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementPunjab":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Punjab" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementRajasthan":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Rajasthan" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementTamilNadu":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Tamil Nadu" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementTelangana":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Telangana" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementTripura":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Tripura" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedReimbursementUttarakhand":
+      json = {
+        action: "StateSelectedReimbursement",
+        rudderData: {
+          label: { state: "Uttarakhand" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "FundingDropdown":
+      json = {
+        action: "FundingDropdown",
+        rudderData: {
+          label: "click",
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingAssam":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Assam" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingWestBengal":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "West Bengal" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingSikkim":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Sikkim" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingAndhraPradesh":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Andhra Pradesh" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingArunachalPradesh":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Arunachal Pradesh" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingBihar":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Bihar" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingChhattisgarh":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Chhattisgarh" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingGoa":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Goa" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingGujarat":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Gujarat" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingHaryana":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Haryana" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingHimachalPradesh":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Himachal Pradesh" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingJharkhand":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Jharkhand" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingKarnataka":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Karnataka" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingKerala":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Kerala" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingMadhyaPradesh":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Madhya Pradesh" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingMaharashtra":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Maharashtra" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingManipur":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Manipur" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingMeghalaya":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Meghalaya" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingMizoram":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Mizoram" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingNagaland":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Nagaland" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingOdisha":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Odisha" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingPunjab":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Punjab" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingRajasthan":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Rajasthan" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingTamilNadu":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Tamil Nadu" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingTelangana":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Telangana" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingTripura":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Tripura" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "StateSelectedFundingUttarakhand":
+      json = {
+        action: "StateSelectedFunding",
+        rudderData: {
+          label: { state: "Uttarakhand" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectPlatform":
+      json = {
+        action: "SelectPlatform",
+        rudderData: {
+          label: "click",
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "PlatformSelectedImpactGuru":
+      json = {
+        action: "PlatformSelected",
+        rudderData: {
+          label: { platform: "ImpactGuru" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "PlatformSelectedKetto":
+      json = {
+        action: "PlatformSelected",
+        rudderData: {
+          label: { platform: "Ketto" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "PlatformSelectedMilaap":
+      json = {
+        action: "PlatformSelected",
+        rudderData: {
+          label: { platform: "Milaap" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "PlatformSelectedGiveIndia":
+      json = {
+        action: "PlatformSelected",
+        rudderData: {
+          label: { platform: "GiveIndia" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "PlatformSelectedBeDonor":
+      json = {
+        action: "PlatformSelected",
+        rudderData: {
+          label: { platform: "BeDonor" },
+          category: "FinancialSupportPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    // CROWD FUNDING PAGE
+
+    case "KnowMoreImpactGuru":
+      json = {
+        action: "KnowMore",
+        rudderData: {
+          label: { platform: "ImpactGuru" },
+          category: "CrowdfundingPlatformsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreKetto":
+      json = {
+        action: "KnowMore",
+        rudderData: {
+          label: { platform: "Ketto" },
+          category: "CrowdfundingPlatformsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreMilaap":
+      json = {
+        action: "KnowMore",
+        rudderData: {
+          label: { platform: "Milaap" },
+          category: "CrowdfundingPlatformsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreGiveIndia":
+      json = {
+        action: "KnowMore",
+        rudderData: {
+          label: { platform: "GiveIndia" },
+          category: "CrowdfundingPlatformsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreBeDonor":
+      json = {
+        action: "KnowMore",
+        rudderData: {
+          label: { platform: "BeDonor" },
+          category: "CrowdfundingPlatformsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    // NGO PAGE
+
+    case "SelectsNGOCanSupport":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "CanSupport" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOCanSupport":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "CanSupport" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOCAPED":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "CAPED" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOCAPED":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "CAPED" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOIndianCancerSociety":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "IndianCancerSociety" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOIndianCancerSociety":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "IndianCancerSociety" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOCanKidsKidsCan":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "CanKidsKidsCan" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOCanKidsKidsCan":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "CanKidsKidsCan" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOKarunashraya":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "Karunashraya" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOKarunashraya":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "Karunashraya" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOWomensCancerInitiative":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "WomensCancerInitiative" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOWomensCancerInitiative":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "WomensCancerInitiative" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOCuddlesFoundation":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "CuddlesFoundation" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOCuddlesFoundation":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "CuddlesFoundation" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOTheCancerCharity":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "TheCancerCharity" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOTheCancerCharity":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "TheCancerCharity" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOMainaFoundation":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "MainaFoundation" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOMainaFoundation":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "MainaFoundation" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOCopeWithCancerOrg":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "CopeWithCancerOrg" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOCopeWithCancerOrg":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "CopeWithCancerOrg" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOYouWeCanYuvrajSinghFoundation":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "YouWeCanYuvrajSinghFoundation" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOYouWeCanYuvrajSinghFoundation":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "YouWeCanYuvrajSinghFoundation" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOIndiaProstateCancerFoundationIPCF":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "IndiaProstateCancerFoundationIPCF" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOIndiaProstateCancerFoundationIPCF":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "IndiaProstateCancerFoundationIPCF" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOButterflyCancerCareFoundation":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "ButterflyCancerCareFoundation" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOButterflyCancerCareFoundation":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "ButterflyCancerCareFoundation" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOBreastCancerFoundationBCFINDIA":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "BreastCancerFoundationBCFINDIA" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOBreastCancerFoundationBCFINDIA":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "BreastCancerFoundationBCFINDIA" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SelectsNGOSamikshaFoundation":
+      json = {
+        action: "SelectsNGO",
+        rudderData: {
+          label: { NGO: "SamikshaFoundation" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "KnowMoreAboutNGOSamikshaFoundation":
+      json = {
+        action: "KnowMoreAboutNGO",
+        rudderData: {
+          label: { NGO: "SamikshaFoundation" },
+          category: "NGO_Page",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    // BUY MEDICINES PAGE
+
+    case "ExploreMoreMeds":
+      json = {
+        action: "ExploreMoreMeds",
+        rudderData: {
+          label: "Click",
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreBreastCancer":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: { typeOfCancer: "BreastCancer" },
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreBloodCancer":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: { typeOfCancer: "BloodCancer" },
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreColonCancer":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: { typeOfCancer: "ColonCancer" },
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreCervicalCancer":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: { typeOfCancer: "CervicalCancer" },
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "LearnMoreKidneyCancer":
+      json = {
+        action: "LearnMore",
+        rudderData: {
+          label: { typeOfCancer: "KidneyCancer" },
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "FindMore":
+      json = {
+        action: "FindMore",
+        rudderData: {
+          label: "Click",
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerFAQ1":
+      json = {
+        action: "CancerFAQ",
+        rudderData: {
+          label: { question: "How do cancer medicines work?" },
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerFAQ2":
+      json = {
+        action: "CancerFAQ",
+        rudderData: {
+          label: {
+            question:
+              "Do cancer medicines cure cancer? Or can cancer go away with medicines?",
+          },
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerFAQ3":
+      json = {
+        action: "CancerFAQ",
+        rudderData: {
+          label: {
+            question: "Are there any side effects of cancer medicines?",
+          },
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerFAQ4":
+      json = {
+        action: "CancerFAQ",
+        rudderData: {
+          label: {
+            question: "How long do side effects of cancer medicines last?",
+          },
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "CancerFAQ5":
+      json = {
+        action: "CancerFAQ",
+        rudderData: {
+          label: { question: "What are some common cancer medicines?" },
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    case "SpeakToUs":
+      json = {
+        action: "SpeakToUs",
+        rudderData: {
+          label: "Click",
+          category: "BuyMedsPage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+    //Vaccination-At-Home Page Events
+    
+    case "ShareDetailsPopUpClicked":
+      json = {
+        action: "ShareDetailsPopUpClicked",
+        rudderData: {
+          label: "",
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "CrossSignCTAClicked":
+      json = {
+        action: "CrossSignCTAClicked",
+        rudderData: {
+          label: "",
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+     
+      case "TollFreePopupClicked":
+      json = {
+        action: "TollFreePopupClicked",
+        rudderData: {
+          label: "",
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "InfluenzaVaccineClicked":
+      json = {
+        action: "AvailableVaccines",
+        rudderData: {
+          label: {typeOfVaccine: "Influenza"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+     
+      case "ShinglesVaccineClicked":
+      json = {
+        action: "AvailableVaccines",
+        rudderData: {
+          label: {typeOfVaccine: "Shingles"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "HPVVaccineClicked":
+      json = {
+        action: "AvailableVaccines",
+        rudderData: {
+          label: {typeOfVaccine: "HPV"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+     
+      case "PneumococcalVaccineClicked":
+      json = {
+        action: "AvailableVaccines",
+        rudderData: {
+          label: {typeOfVaccine: "Pneumococcal"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "Hepatitis-BVaccineClicked":
+      json = {
+        action: "AvailableVaccines",
+        rudderData: {
+          label: {typeOfVaccine: "Hepatitis-B"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "ShareDetailsWebpageClicked":
+      json = {
+        action: "ShareDetailsWebpageClicked",
+        rudderData: {
+          label: "",
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+     
+      case "TollFreeWebpageClicked":
+      json = {
+        action: "TollFreeWebpageClicked",
+        rudderData: {
+          label: "",
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "StartWatchingVideoClicked":
+      json = {
+        action: "StartWatchingVideoClicked",
+        rudderData: {
+          label: "",
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+    
+      case "ReadMoreClicked":
+      json = {
+        action: "ReadMoreClicked",
+        rudderData: {
+          label: "",
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "ConsultNowClicked":
+      json = {
+        action: "ConsultNowClicked",
+        rudderData: {
+          label: "",
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "Back-To-TopButtonClicked":
+      json = {
+        action: "Back-To-TopButtonClicked",
+        rudderData: {
+          label: "",
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "AddToCartInfluvacTetraVaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "InfluvacTetra Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "AddToCartVaxiflu4Vaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "Vaxiflu4 Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "AddToCartNasovac-S4Vaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "Nasovac-S4 Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "AddToCartFluQuadriSH2021Vaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "FluQuadri SH 2021 Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "AddToCartSingrixVaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "Singrix Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "AddToCartGardasilVaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "Gardasil Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "AddToCartCervavacVaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "Cervavac Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "AddToCartPrevenar13Vaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "Prevenar 13 Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "AddToCartPneumosilVaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "Pneumosil Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+     
+      case "AddToCartSynflorixVaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "SynflorixVaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "AddToCartPneumovax23Vaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "Pneumovax 23 Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "AddToCartGeneVac-BVaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "GeneVac-B Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+     
+      case "AddToCartRevac-BPlusAdultVaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "Revac-B Plus Adult Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+      
+      case "AddToCartBevacAdultVaccine":
+      json = {
+        action: "AddToCart",
+        rudderData: {
+          label: {typeOfVaccine: "Bevac Adult Vaccine"},
+          category: "VaccinationAtHomePage",
+          device: deviceVal,
+        },
+      };
+      break;
+
+
+    // PAGE JSONS
+
+    case "CancerCareHomePage":
+      json = {
+        type: "page",
+        name: "CancerCareHomePage",
+        properties: {
+          title: "CancerCareHomePage",
+          url: "https://www.1mg.com/cancer-care/home",
+        },
+      };
+      break;
+
+    case "FindCancerSpecialistsPage":
+      json = {
+        type: "page",
+        name: "FindCancerSpecialistsPage",
+        properties: {
+          title: "FindCancerSpecialistsPage",
+          url: "https://www.1mg.com/cancer-care/Find-Cancer-Specialists",
+        },
+      };
+      break;
+
+    case "GetFinancialSupport":
+      json = {
+        type: "page",
+        name: "GetFinancialSupport",
+        properties: {
+          title: "GetFinancialSupport",
+          url: "https://www.1mg.com/cancer-care/Get-Financial-Support",
+        },
+      };
+      break;
+
+    case "DiagnosticsPage":
+      json = {
+        type: "page",
+        name: "DiagnosticsPage",
+        properties: {
+          title: "DiagnosticsPage",
+          url: "https://www.1mg.com/cancer-care/diagnostics",
+        },
+      };
+      break;
+
+    case "PSPPage":
+      json = {
+        type: "page",
+        name: "PSPPage",
+        properties: {
+          title: "PSPPage",
+          url: "https://www.1mg.com/cancer-care/Patient-Support-Programs",
+        },
+      };
+      break;
+
+    case "SeekNGOSupportPage":
+      json = {
+        type: "page",
+        name: "SeekNGOSupportPage",
+        properties: {
+          title: "SeekNGOSupportPage",
+          url: "https://www.1mg.com/cancer-care/Seek-NGOs-Support",
+        },
+      };
+      break;
+
+    case "BuyMedicines":
+      json = {
+        type: "page",
+        name: "BuyMedicines",
+        properties: {
+          title: "BuyMedicines",
+          url: "https://www.1mg.com/cancer-care/Buy-Cancer-Medicines",
+        },
+      };
+      break;
+
+      case "VaccinationAtHomePage":
+      json = {
+        type: "page",
+        name: "VaccinationAtHomePage",
+        properties: {
+          title: "VaccinationAtHomePage",
+          url: "https://stag.1mg.com/cancer-care/vaccination-at-home",
+        },
+      };
+      break;
+
+    default:
+  }
+
+  return json;
+}
+function getShinglesJson({data={} ,type}) {
+  let json = {};
+  let deviceVal =getDeviceVal();
+  let UserID = getUserId();
+    switch (type) {
+      //////Shingles page
+      case "Shinglestopnav_click_linkWhatisShingles":
+        json = {
+          action: "topnav_click_link",
+          rudderData: {
+            label: "WhatisShingles",
+            category: "ShinglesInformation",
+            device: deviceVal,
+          },
+        };
+        break;
+  
+      case "Shinglestopnav_click_linkWhosMostatRisk":
+        json = {
+          action: "topnav_click_link",
+          rudderData: {
+            label: "Who'sMostatRisk",
+            category: "ShinglesInformation",
+            device: deviceVal,
+          },
+        };
+        break;
+  
+      case "Shinglestopnav_click_linkWhatcanyoudo":
+        json = {
+          action: "topnav_click_link",
+          rudderData: {
+            label: "Whatcanyoudo",
+            category: "ShinglesInformation",
+            device: deviceVal,
+          },
+        };
+        break;
+  
+      case "Shinglestopnav_click_linkVaccination":
+        json = {
+          action: "topnav_click_link",
+          rudderData: {
+            label: "Vaccination",
+            category: "ShinglesInformation",
+            device: deviceVal,
+          },
+        };
+        break;
+  
+      case "Shinglescta_click_know_more_from_educator":
+        json = {
+          action: "cta_click_know_more_from_educator",
+          rudderData: {
+            label: "",
+            category: "ShinglesInformation",
+            device: deviceVal,
+          },
+        };
+        break;
+  
+      case "Shinglesrequest_a_call_back_dialog_box_open":
+        json = {
+          action: "request_a_call_back_dialog_box_open",
+          rudderData: {
+            label: "",
+            category: "ShinglesInformation",
+            device: deviceVal,
+          },
+        };
+        break;
+  
+      case "Shinglescta_click_request_a_call_back":
+        json = {
+          action: "cta_click_request_a_call_back",
+          rudderData: {
+            label: {
+              form_filled: {
+                phonenumber: /^[0-9]{10}$/.test(data.phonenumber) ?data.phonenumber:null, 
+                name:typeof data.name==='string'?data.name:null,
+              },
+            },
+            category: "ShinglesInformation",
+            device: deviceVal,
+          },
+        };
+        break;
+  
+      case "Shinglesshingles_page_visited":
+        json = {
+          type: "page",
+          name: "ShinglesPageVisited",
+          properties: {
+          title: "ShinglesPageVisited",
+          url: "https://www.1mg.com/information/shingles",
+          },
+        };
+        break;
+  
+      case "Shinglescta_click_get_a_free_call_back":
+        json = {
+          action: "cta_click_get_a_free_call_back",
+          rudderData: {
+            label: "",
+            category: "ShinglesInformation",
+            device: deviceVal,
+          },
+        };
+        break;
+  
+      case "Shinglescta_cross_sign_request_a_call_back":
+        json = {
+          action: "cta_cross_sign_request_a_call_back",
+          rudderData: {
+            label: {
+              form_filled: {
+                phonenumber: /^[0-9]{10}$/.test(data.phonenumber) ?data.phonenumber:null, 
+                name:typeof data.name==='string'?data.name:null,
+              },
+            },
+            category: "ShinglesInformation",
+            device: deviceVal,
+          },
+        };
+        break;
+      default:
+    }
+    return json;
+}

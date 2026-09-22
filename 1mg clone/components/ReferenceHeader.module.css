@@ -1,0 +1,38 @@
+.header{background:#fff;border-bottom:1px solid #ddd;color:#151515;position:relative;z-index:20}
+.top{display:flex;align-items:center;height:66px;padding:0 16px 0 19px;border-bottom:1px solid #e6e6e6;font-family:Arial,Helvetica,sans-serif;color:#000}
+.logo{flex:0 0 119px;display:flex;align-items:center}
+.logo img{width:118px;max-width:none;height:36px;object-fit:contain;margin-left:-4px}
+.nav{display:grid;grid-template-columns:minmax(92px,92fr) minmax(68px,84fr) minmax(115px,148fr) minmax(85px,112fr) minmax(92px,92fr) minmax(119px,119fr) minmax(109px,109fr) minmax(65px,81fr);align-self:stretch;flex:1;min-width:745px;max-width:837px}
+.nav a{position:relative;display:flex;align-items:center;font:700 14px/20px Arial,Helvetica,sans-serif;padding:0 8px;white-space:nowrap}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:transparent}.nav a:hover,.nav .active{color:#ff6f61}.nav a:hover::after,.nav .active::after{background:#ff6f61}
+.saveMore{flex:0 0 73px;margin:0 9px 0 7px;background:#ff6f61;color:white;font:700 12px/14px Arial,Helvetica,sans-serif;text-align:center;border-radius:1px}
+.account{display:flex;align-items:center;gap:6px;flex:0 0 100px;font:700 14px/20px Arial,Helvetica,sans-serif;white-space:nowrap}
+.account>a+a{border-left:1px solid #000;padding-left:7px;line-height:20px}
+.account>button{font-weight:700;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.offers{flex:0 0 88px;text-align:center;font:400 14px/20px Arial,Helvetica,sans-serif}
+.cart{flex:0 0 64px;background:transparent;position:relative;padding:0;display:flex;justify-content:center;align-items:center;color:#333}
+.cart img{display:block;width:18px;height:18px;object-fit:contain}
+.cart i{position:absolute;left:calc(50% + 5px);right:auto;top:-8px;background:#ff6f61;border-radius:50%;font:10px Arial;color:#fff;min-width:15px;height:15px;display:grid;place-items:center}
+.help{flex:0 0 71px;padding-left:0;font:700 14px/20px Arial,Helvetica,sans-serif}
+.searchRow{padding:8px 32px 8px 38px;display:flex;gap:2px;align-items:center}.city{background:#f1f4f6;display:flex;align-items:center;gap:12px;width:270px;height:40px;padding:0 12px;font-size:13px}.city svg{color:#777}.city svg:last-child{margin-left:auto}.search{display:flex;align-items:center;background:#f1f4f6;height:40px;flex:1;max-width:590px}.search input{width:100%;min-width:0;background:transparent;border:0;padding:12px 15px;font-size:12px;outline:0}.search button{background:transparent;padding:10px 15px;color:#444}.quick{display:flex;gap:12px;align-items:center;margin-left:auto;padding-left:20px;font-size:13px}.quick a{padding:10px 10px;background:#ff6f61;color:#fff;border-radius:3px;font-weight:600;white-space:nowrap}.categories{display:flex;justify-content:center;gap:22px;border-top:1px solid #eee;padding:8px 20px;font-size:12px}.categories details{position:relative}.categories summary{list-style:none;display:flex;align-items:center;gap:7px;cursor:pointer;white-space:nowrap}.categories details>div{position:absolute;top:26px;left:0;width:210px;box-shadow:0 5px 20px #0002;background:white;display:grid;padding:15px;gap:15px}.categories a:hover{color:#ff6f61}.menuToggle{display:none;background:none}.overlay{position:fixed;inset:0;background:#0006;z-index:100;display:grid;place-items:center;padding:20px}.dialog{background:white;border-radius:6px;width:min(430px,100%);padding:35px;position:relative}.dialog h2{font-size:22px}.dialog p{font-size:13px;color:#777}.dialog input{width:100%;padding:12px;border:1px solid #ddd;margin:10px 0}.close{position:absolute;right:12px;top:12px;background:transparent}.cities{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 22px}.cities button{background:#f7f7f7;padding:8px;font-size:12px}
+@media(max-width:1199px){.top{padding:10px 16px;height:60px;gap:12px}.logo{flex-basis:auto}.saveMore,.offers{display:none}.cart{flex-basis:28px}.account{flex-basis:auto;font-size:12px}.menuToggle{display:block;padding:0}.logo img{width:95px}.nav{display:none;min-width:0;max-width:none}.nav.open{display:flex;position:absolute;top:60px;left:0;right:0;background:white;flex-direction:column;padding:14px 24px;box-shadow:0 8px 15px #0002;gap:0}.nav a{max-width:none;padding:11px}.nav a br{display:initial}.account{margin-left:auto}.help{display:none}.searchRow{padding:9px 12px;flex-wrap:wrap;gap:8px}.city{width:100%;height:26px;background:white;padding:0;font-size:11px}.city svg{width:15px}.city svg:last-child{margin-left:0}.search{max-width:none;height:40px}.quick{display:none}.categories{overflow:auto;justify-content:flex-start;gap:22px;padding:10px 14px}.categories details>div{position:fixed;top:180px;left:15px}.account svg{display:none}.cart{padding:4px}}
+
+@media(min-width:1200px) and (max-width:1300px){.top{padding-right:12px;padding-left:15px}.nav a{font-size:12px;padding:0 6px}.saveMore{margin:0 6px;flex-basis:65px;font-size:11px}.account{flex-basis:100px}.offers{flex-basis:65px}.cart{flex-basis:40px}.help{flex-basis:50px;font-size:12px}.quick{font-size:11px}.categories{gap:18px;font-size:11px}}
+
+/* Desktop layouts follow the two supplied reference headers. */
+@media(min-width:1200px){
+ .account:has([aria-label="Account menu"]){flex-basis:40px}
+ .compact .top{height:48px}
+ .compact .nav{display:flex;flex:0 0 auto;min-width:0;max-width:none}
+ .compact .nav a{padding:0 9px;flex:0 0 auto;font-size:13px;line-height:20px}
+ .compact .saveMore{margin-left:0;margin-right:12px}
+ .compact .account{margin-left:auto}
+ .compact .offers{display:none}
+ .compact .cart{flex-basis:80px}
+ .compact .help{flex-basis:78px;white-space:nowrap}
+}
+@media(min-width:1200px) and (max-width:1300px){
+ .nav{min-width:690px;max-width:755px;grid-template-columns:84px 60px minmax(100px,1fr) minmax(75px,.75fr) 80px 105px 98px 60px}
+ .compact .nav a{font-size:12px;padding:0 6px}
+ .compact .cart{flex-basis:48px}
+}

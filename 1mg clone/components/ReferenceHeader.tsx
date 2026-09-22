@@ -1,0 +1,25 @@
+'use client';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { FormEvent, useEffect, useState, useSyncExternalStore } from 'react';
+import { ChevronDown, LocateFixed, MapPin, Menu, Search, X } from 'lucide-react';
+import { useCartStore } from '../lib/useCartStore';
+import { UserAuthButton } from './UserAuthButton';
+import { asset } from '../lib/assets';
+import styles from './ReferenceHeader.module.css';
+const subscribeCity=(callback:()=>void)=>{window.addEventListener('storage',callback);window.addEventListener('delivery-city',callback);return()=>{window.removeEventListener('storage',callback);window.removeEventListener('delivery-city',callback)}};
+const readCity=()=>localStorage.getItem('delivery-city')||'Gurgaon';
+const links=[['MEDICINES','/'],['LAB TESTS','/labs'],['CONSULT DOCTORS','/doctors'],['CANCER CARE','/cancer-care'],['AYURVEDA','/ayurveda'],['PARTNERSHIPS','/partnerships'],['CORPORATES','/partnerships/corporate-wellness'],['CARE PLAN','/care-plan']];
+const categories=['Health Resource Center','Hair Care','Fitness & Health','Sexual Wellness','Vitamins & Nutrition','Supports & Braces','Immunity Boosters','Homeopathy','Pet Care'];
+export function ReferenceHeader(){
+ const path=usePathname(),router=useRouter();const [query,setQuery]=useState(''),[draft,setDraft]=useState(''),[cityOpen,setCityOpen]=useState(false),[menu,setMenu]=useState(false);
+ const compact=path==='/labs'||path.startsWith('/labs/');
+ const city=useSyncExternalStore(subscribeCity,readCity,()=> 'Gurgaon');
+ const count=useCartStore(s=>s.items.reduce((n,i)=>n+(i.quantity||1),0)),toggleCart=useCartStore(s=>s.toggleCart);
+
+ useEffect(()=>{if(!cityOpen)return;const key=(e:KeyboardEvent)=>{if(e.key==='Escape')setCityOpen(false)};window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key)},[cityOpen]);
+ function search(e:FormEvent){e.preventDefault();router.push('/products?search='+encodeURIComponent(query.trim()))}
+ return <header className={`${styles.header} ${compact?styles.compact:''}`}><div className={styles.top}><button className={styles.menuToggle} onClick={()=>setMenu(!menu)} aria-label="Toggle navigation" aria-expanded={menu}><Menu size={22}/></button><Link href="/" className={styles.logo}><img src={asset('1mg_logo_header.svg')} alt="Tata 1mg" width={110} height={32}/></Link><nav className={`${styles.nav} ${menu?styles.open:''}`} aria-label="Main navigation">{links.map(([label,href])=><Link key={href} href={href} onClick={()=>setMenu(false)} className={path===href?styles.active:''}>{!compact&&['LAB TESTS','CONSULT DOCTORS','CANCER CARE','CARE PLAN'].includes(label)?<span>{label.split(' ')[0]}<br/>{label.split(' ').slice(1).join(' ')}</span>:label}</Link>)}</nav><Link href="/care-plan" className={styles.saveMore}>SAVEMORE</Link><div className={styles.account}><UserAuthButton/></div><Link href="/#products" className={styles.offers}>Offers</Link><button className={styles.cart} onClick={toggleCart} aria-label={`Open cart, ${count} items`}><img src={asset('cart.svg')} alt="" width={18} height={18}/>{count>0&&<i>{count}</i>}</button><Link className={styles.help} href="/help">{compact?'Need Help?':<>Need<br/>Help?</>}</Link></div>
+ {!compact&&<><div className={styles.searchRow}><button className={styles.city} onClick={()=>{setDraft(city);setCityOpen(true)}}><MapPin size={19}/><b>{city}</b><LocateFixed size={19}/></button><form className={styles.search} onSubmit={search}><input aria-label="Search medicines and health products" placeholder="Search for Medicines and Health Products" value={query} onChange={e=>setQuery(e.target.value)}/><button aria-label="Search"><Search size={20}/></button></form><div className={styles.quick}><span>⚡ QUICK BUY! Explore medicines and health products</span><Link href="/products">Quick order</Link></div></div><nav className={styles.categories} aria-label="Shop categories">{categories.map(c=><details key={c}><summary>{c}<ChevronDown size={12}/></summary><div><Link href={'/products?search='+encodeURIComponent(c)}>Explore {c}</Link><Link href="/products">All medicines</Link><Link href="/doctors">Consult a doctor</Link></div></details>)}</nav></>}
+ {cityOpen&&<div className={styles.overlay} onClick={()=>setCityOpen(false)}><form className={styles.dialog} role="dialog" aria-modal="true" aria-labelledby="city-title" onClick={e=>e.stopPropagation()} onSubmit={e=>{e.preventDefault();if(draft.trim()){localStorage.setItem('delivery-city',draft.trim());window.dispatchEvent(new Event('delivery-city'));setCityOpen(false)}}}><button type="button" className={styles.close} onClick={()=>setCityOpen(false)} aria-label="Close"><X/></button><h2 id="city-title">Choose your city</h2><p>Set your delivery location</p><input autoFocus aria-label="Delivery city" required value={draft} onChange={e=>setDraft(e.target.value)}/><div className={styles.cities}>{['Gurgaon','Delhi','Mumbai','Bengaluru','Chennai','Hyderabad','Kolkata','Pune'].map(c=><button type="button" key={c} onClick={()=>setDraft(c)}>{c}</button>)}</div><button className="primary-button">Save location</button></form></div>}</header>;
+}
